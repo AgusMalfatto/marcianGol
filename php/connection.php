@@ -1,17 +1,14 @@
 <?php
 /* ------------------------ DATABASE CONNECTION ------------------------ */
 
-$servername = "localhost";
-$username = "root";
-$password = "Racing.2010";
+include ("config.php");
 
-$conn = mysqli_connect($servername, $username, $password);
+$conn = mysqli_connect($database_config['servername'], $database_config['username'], $database_config['password']);
 
 if (!$conn) {
     die("Connection has failed: " . mysqli_connect_error());
 }
-else {
+/* else {
     echo "Connection success";
-}
-
+}*/
 ?>
