@@ -13,3 +13,4 @@
 * Tener instalado un editor de código.
 * Tener instalado MySQL Workbench 8.0 o superior.
 * Modificar, en el archivo *'php/config.php'*, las variables *'username'* y *'password'* según su configuración de MySQL Workbench.
+* Ingresar en primera instancia a la URL *'localhost/marciangol/php/creation/database_creation.php'* para crear la base de datos (verificar que en los mensajes impresos no salgan errores).
