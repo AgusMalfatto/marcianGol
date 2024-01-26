@@ -1,5 +1,6 @@
 <?php
-include('connection.php');
+include('creation/connection.php');
+
 $databaseName = "MarcianGol";
 mysqli_select_db($conn, $databaseName);
 
