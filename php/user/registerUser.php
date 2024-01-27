@@ -2,7 +2,7 @@
 
 /* ------------------------ REGISTER USER IN DATABASE ------------------------ */
 
-include ("../creation/connection.php");
+include ("../database/connection.php");
 
 $name = !empty($_POST['name']) ? $_POST['name'] : null;
 $last_name = !empty($_POST['last_name']) ? $_POST['last_name'] : null;
@@ -25,19 +25,21 @@ if(($name === null) || ($last_name === null) || ($email === null) || ($plain_pas
     include ("../team/getIdTeam.php");
     $id_team = get_team_id($team_name);
 
+    if ($id_team->success) {
 
-    # Insert instruction
-    $insertUserQuery = "INSERT INTO user (name, last_name, email, password, id_team) VALUES (?, ?, ?, ?, ?)";
-    $stmt = $conn->prepare($insertUserQuery);
-    
-    if (!$stmt) {
-        $message .= " Error preparing the query: " . $conn->error;
-    }
+        # Insert instruction
+        $insertUserQuery = "INSERT INTO user (name, last_name, email, password, id_team) VALUES (?, ?, ?, ?, ?)";
+        $stmt = $conn->prepare($insertUserQuery);
+        
+        if (!$stmt) {
+            $message .= " Error preparing the query: " . $conn->error;
+        }
 
-    $stmt->bind_param("ssssi", $name, $last_name, $email, $hassed_password, $id_team);
+        $stmt->bind_param("ssssi", $name, $last_name, $email, $hassed_password, $id_team->id_team);
 
-    if (!$stmt->execute()) {
-        $message .= " Error executing the query: " . $stmt->error;
+        if (!$stmt->execute()) {
+            $message .= " Error executing the query: " . $stmt->error;
+        }
     }
 
     $stmt->close();
