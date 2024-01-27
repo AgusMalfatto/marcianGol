@@ -14,7 +14,7 @@ $team_name = !empty($_POST['id_team']) ? $_POST['id_team'] : null;
 $message = "";
 
 if(($name === null) || ($last_name === null) || ($email === null) || ($plain_password === null) || ($team_name === null)) {
-    $message = "All fields must be completed.";
+    $message .= " All fields must be completed.";
 } else {
     $databaseName = "marcianGol";
     mysqli_select_db($conn, $databaseName);
@@ -31,18 +31,21 @@ if(($name === null) || ($last_name === null) || ($email === null) || ($plain_pas
     $stmt = $conn->prepare($insertUserQuery);
     
     if (!$stmt) {
-        throw new Exception("Error preparing the query: " . $conn->error);
+        $message .= " Error preparing the query: " . $conn->error;
     }
 
     $stmt->bind_param("ssssi", $name, $last_name, $email, $hassed_password, $id_team);
 
     if (!$stmt->execute()) {
-        throw new Exception("Error executing the query: " . $stmt->error);
+        $message .= " Error executing the query: " . $stmt->error;
     }
 
     $stmt->close();
     $conn->close();
 
 }
+
+echo json_encode($message);
+
 
 ?>
