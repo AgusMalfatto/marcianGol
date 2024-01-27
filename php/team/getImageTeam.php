@@ -2,7 +2,7 @@
 
 /* ------------------------ GET IMAGE OF THE TEAM ------------------------ */
 
-include('../creation/connection.php');
+include('../database/connection.php');
 
 $databaseName = "MarcianGol";
 mysqli_select_db($conn, $databaseName);
