@@ -33,8 +33,6 @@ function is_email_valid($conn, $email) {
             throw new Exception("Error executing the query: " . $stmt->error);
         }
 
-        $stmt->bind_result($result_email);
-        
         $exists = $stmt->fetch();
 
         $stmt->close();
