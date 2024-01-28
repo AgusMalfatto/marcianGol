@@ -105,7 +105,7 @@ function loadTeamImage() {
 
     // Realizar la solicitud AJAX para obtener la imagen
     $.ajax({
-        url: "php/getImageTeam.php", // Reemplaza con la URL de tu script PHP para obtener imágenes
+        url: "php/team/getImageTeam.php", // Reemplaza con la URL de tu script PHP para obtener imágenes
         type: "POST",
         data: { teamName: teamName },
         success: function(response) {
