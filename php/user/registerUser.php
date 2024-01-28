@@ -3,6 +3,7 @@
 /* ------------------------ REGISTER USER IN DATABASE ------------------------ */
 
 include ("../database/connection.php");
+include ("validation.php");
 
 $name = !empty($_POST['name']) ? $_POST['name'] : null;
 $last_name = !empty($_POST['last_name']) ? $_POST['last_name'] : null;
