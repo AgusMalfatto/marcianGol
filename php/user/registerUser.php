@@ -51,12 +51,14 @@ if(($name === null) || ($last_name === null) || ($email === null) || ($plain_pas
                 if (!$stmt->execute()) {
                     $message .= " Error executing the query: " . $stmt->error;
                 }
+                
+                $stmt->close();
+                $conn->close(); 
             }
         }
         
     }
-    $stmt->close();
-    $conn->close();
+    
 
 }
 

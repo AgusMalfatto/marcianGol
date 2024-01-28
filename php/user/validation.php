@@ -64,9 +64,9 @@ function is_pass_valid($pass) {
         return false;
     }
 
-    $uppercase = preg_match('/[A-Z]/', $password);
-    $lowercase = preg_match('/[a-z]/', $password);
-    $number = preg_match('/[0-9]/', $password);
+    $uppercase = preg_match('/[A-Z]/', $pass);
+    $lowercase = preg_match('/[a-z]/', $pass);
+    $number = preg_match('/[0-9]/', $pass);
 
     return $uppercase && $lowercase && $number;
 }
