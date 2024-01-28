@@ -20,29 +20,41 @@ if(($name === null) || ($last_name === null) || ($email === null) || ($plain_pas
     $databaseName = "marcianGol";
     mysqli_select_db($conn, $databaseName);
 
-    $hassed_password = password_hash($plain_password, PASSWORD_DEFAULT);
-    
-    # Get the id team of the user
-    include ("../team/getIdTeam.php");
-    $id_team = get_team_id($team_name);
+    # Validate the email in the database
+    if (!is_email_valid($conn, $email)){
+        $message .= " The email already exists.";
+    } else {
 
-    if ($id_team->success) {
+        # Validate the password format
+        if (!is_pass_valid($plain_password)) {
+            $message .= " The password is not valid.";
+        } else {
 
-        # Insert instruction
-        $insertUserQuery = "INSERT INTO user (name, last_name, email, password, id_team) VALUES (?, ?, ?, ?, ?)";
-        $stmt = $conn->prepare($insertUserQuery);
+            $hassed_password = password_hash($plain_password, PASSWORD_DEFAULT);
         
-        if (!$stmt) {
-            $message .= " Error preparing the query: " . $conn->error;
-        }
+            # Get the id team of the user
+            include ("../team/getIdTeam.php");
+            $id_team = get_team_id($team_name);
 
-        $stmt->bind_param("ssssi", $name, $last_name, $email, $hassed_password, $id_team->id_team);
+            if ($id_team->success) {
 
-        if (!$stmt->execute()) {
-            $message .= " Error executing the query: " . $stmt->error;
+                # Insert instruction
+                $insertUserQuery = "INSERT INTO user (name, last_name, email, password, id_team) VALUES (?, ?, ?, ?, ?)";
+                $stmt = $conn->prepare($insertUserQuery);
+                
+                if (!$stmt) {
+                    $message .= " Error preparing the query: " . $conn->error;
+                }
+
+                $stmt->bind_param("ssssi", $name, $last_name, $email, $hassed_password, $id_team->id_team);
+
+                if (!$stmt->execute()) {
+                    $message .= " Error executing the query: " . $stmt->error;
+                }
+            }
         }
+        
     }
-
     $stmt->close();
     $conn->close();
 
