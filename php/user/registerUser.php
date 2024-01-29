@@ -1,6 +1,16 @@
 <?php
 
 /* ------------------------ REGISTER USER IN DATABASE ------------------------ */
+/* 
+
+It needs the next parameters:
+    - Name: as 'name'.
+    - Last Name: as 'last_name'.
+    - Email: as 'email'.
+    - Password: as 'password'.
+    - Team: as 'team_name'.
+
+*/
 
 include ("../database/connection.php");
 include ("validation.php");
@@ -9,7 +19,7 @@ $name = !empty($_POST['name']) ? $_POST['name'] : null;
 $last_name = !empty($_POST['last_name']) ? $_POST['last_name'] : null;
 $email = !empty($_POST['email']) ? $_POST['email'] : null;
 $plain_password = !empty($_POST['password']) ? $_POST['password'] : null;
-$team_name = !empty($_POST['id_team']) ? $_POST['id_team'] : null;
+$team_name = !empty($_POST['team_name']) ? $_POST['team_name'] : null;
 
 
 $message = "";
