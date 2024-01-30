@@ -11,8 +11,6 @@ Returns in a JSON format an object with a 'status' key on true if the user was d
 include ("../session/validateSession.php");
 include ("../database/connection.php");
 
-#$id_user = !empty($_GET['id_user']) ? $_GET['id_user'] : null;
-
 $message = new stdClass();
 
 $databaseName = "marcianGol";
