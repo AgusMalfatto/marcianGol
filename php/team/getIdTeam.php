@@ -54,11 +54,6 @@ function get_team_id($conn, $team_name){
         $result->message = $e->error;
     }
 
-    // Close the statement and the connection
-    if ($stmt) {
-        $stmt->close();
-    }
-    $conn->close();
     return $result;
 }
 

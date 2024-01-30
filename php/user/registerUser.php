@@ -21,23 +21,31 @@ $email = !empty($_POST['email']) ? $_POST['email'] : null;
 $plain_password = !empty($_POST['password']) ? $_POST['password'] : null;
 $team_name = !empty($_POST['team_name']) ? $_POST['team_name'] : null;
 
-
-$message = "";
+$result = new stdClass();
+$result->message = "";
+$result->success = true;
 
 if(($name === null) || ($last_name === null) || ($email === null) || ($plain_password === null) || ($team_name === null)) {
-    $message .= " All fields must be completed.";
-} else {
+    $result->message .= " All fields must be completed.";
+    $result->success = false;
+}
+
+if ($result->success) {
     $databaseName = "marcianGol";
     mysqli_select_db($conn, $databaseName);
 
     # Validate the email in the database
     if (!is_email_valid($conn, $email)){
-        $message .= " The email already exists.";
-    } else {
+        $result->message .= " The email already exists.";
+        $result->success = false;
+    } 
+
+    if ($result->success) {
 
         # Validate the password format
         if (!is_pass_valid($plain_password)) {
-            $message .= " The password is not valid.";
+            $result->message .= " The password is not valid.";
+            $result->success = false;
         } else {
 
             $hassed_password = password_hash($plain_password, PASSWORD_DEFAULT);
@@ -53,26 +61,28 @@ if(($name === null) || ($last_name === null) || ($email === null) || ($plain_pas
                 $stmt = $conn->prepare($insertUserQuery);
                 
                 if (!$stmt) {
-                    $message .= " Error preparing the query: " . $conn->error;
+                    $result->message .= " Error preparing the query: " . $conn->error;
+                    $result->success = false;
                 }
 
                 $stmt->bind_param("ssssi", $name, $last_name, $email, $hassed_password, $id_team->id_team);
 
                 if (!$stmt->execute()) {
-                    $message .= " Error executing the query: " . $stmt->error;
+                    $result->message .= " Error executing the query: " . $stmt->error;
+                    $result->success = false;
                 }
                 
                 $stmt->close();
                 $conn->close(); 
+            } else {
+                $result->message .= "The team '" . $team_name ."' doesn't exists";
+                $result->success = false;
             }
-        }
-        
+        }   
     }
-    
+}    
 
-}
-
-echo json_encode($message);
+echo json_encode($result);
 
 
 ?>
