@@ -2,6 +2,7 @@
 
 /* ------------------------ GET IMAGE OF THE TEAM ------------------------ */
 
+include ("../session/validateSession.php");
 include('../database/connection.php');
 
 $databaseName = "MarcianGol";
