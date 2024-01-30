@@ -4,19 +4,22 @@
 
 
 
-function get_team_id($team_name){
+function get_team_id($conn, $team_name){
 
     /* 
-        Parameter: The name of the team
-        Return: An object with the id team and the status of the result
+        It returns the ID of the name team passed as parameter.
+
+        Parameters: 
+            $conn : The connection to the database.
+            $team_name : Name of the team.
+        
+        Return: 
+            Returns an object with three keys:
+                success: True or False if the result is okay or not.
+                message: Message of the error in case there were a problem.
+                id_team: ID of the team in case it was captured.
     */
-    include('../database/connection.php');
 
-    $databaseName = "MarcianGol";
-    mysqli_select_db($conn, $databaseName);
-
-    
-    # Variable to return
     $result = new stdClass();
     $result->success = false;
     $result->id_team = -1;
@@ -25,19 +28,22 @@ function get_team_id($team_name){
         $stmt = $conn->prepare("SELECT id_team FROM team WHERE name = ?");
         
         if (!$stmt) {
-            throw new Exception("Error preparing the query: " . $conn->error);
+            $result->message = "Error preparing the query: " . $conn->error;
             $result->success = false;
         }
 
         $stmt->bind_param("s", $team_name);
 
         if (!$stmt->execute()) {
-            throw new Exception("Error executing the query: " . $stmt->error);
+            $result->message = "Error executing the query: " . $stmt->error;
+            $result->success = false;
         }
 
         $stmt->bind_result($id_team);
         
         if (!$stmt->fetch()) {
+            $result->success = false;
+            $result->message = "No result for the name: " . $team_name;
             $id_team = -1;
         } else {
             $result->success = true;

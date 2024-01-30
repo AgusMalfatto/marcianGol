@@ -44,7 +44,7 @@ if(($name === null) || ($last_name === null) || ($email === null) || ($plain_pas
         
             # Get the id team of the user
             include ("../team/getIdTeam.php");
-            $id_team = get_team_id($team_name);
+            $id_team = get_team_id($conn, $team_name);
 
             if ($id_team->success) {
 
