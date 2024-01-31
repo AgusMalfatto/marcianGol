@@ -1,12 +1,12 @@
 # MarcianGol
 
-### Objetivo del proyecto
+## Objetivo del proyecto
 
 * Desarrollo de aplicación web de tipo foro.
 * Creación de usuario para la participación mediante comentarios y/o likes en los distintos foros.
 * Usuarios administradores son los únicos que pueden crear foros nuevos.
 
-### ¿Cómo utilizar el código de forma local?
+## ¿Cómo utilizar el código de forma local?
 
 * Tener instalado XAMPP.
 * Guardar el proyecto en la carpeta *'htdocs'* del XAMPP
