@@ -7,7 +7,9 @@ It needs the next parameters:
     - Email: as 'email'.
     - Password: as 'password'.
 
-If the login information is correct then it redirects to the index.
+Returns:
+    If the login information is correct then it redirects to the index.
+    If not, it returns false.
 */
 
 include ("../database/connection.php");
