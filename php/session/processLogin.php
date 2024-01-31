@@ -18,7 +18,7 @@ error_reporting(E_ALL);
 $email = isset($_POST['email']) ? $_POST['email'] : null;
 $password = isset($_POST['password']) ? $_POST['password'] : null;
 
-if (empty($email) || empty($pass)) {
+if (empty($email) || empty($password)) {
     echo json_encode(false);
 }
 

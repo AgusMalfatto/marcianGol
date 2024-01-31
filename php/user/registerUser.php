@@ -12,7 +12,6 @@ It needs the next parameters:
 
 */
 
-include ("../session/validateSession.php");
 include ("../database/connection.php");
 include ("validation.php");
 
@@ -84,6 +83,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }   
         }
     }    
+
+    if ($result->success) {
+        header('location: ../../index.html');
+    }
 
     echo json_encode($result);
 }
