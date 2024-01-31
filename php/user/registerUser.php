@@ -96,10 +96,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     echo json_encode($result);
 }
-
-if ($_SERVER['REQUEST_METHOD'] === 'GET') {
-    echo json_encode("METODO GET");
-}
-
-
 ?>
