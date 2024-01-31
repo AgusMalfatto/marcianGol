@@ -1,0 +1,233 @@
+/* Estilos generales */
+
+body {
+    background-color: #0b090a;
+    /* Buscar una fuente */
+    /* font-family: "Source Code Pro", monospace; */
+  }
+  
+  section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  /* h1 {
+    font-size: 2.5rem;
+    color: #f5f3f4;
+    overflow: inherit;
+  } */
+  
+  /* footer p {
+    color: #fff;
+  } */
+  
+  /* footer {
+    margin-top: 3rem;
+    border-top: 0.2rem solid #e5383b;
+    background-color: #161a1d;
+  } */
+  
+  /* textarea {
+    height: 4rem;
+    max-height: 6rem;
+    overflow-y: auto;
+  } */
+  
+  /* Barra de navegacion */
+  .navbar {
+    background-color: #161a1d;
+    padding: 1rem;
+    border-bottom: 0.2rem solid #e5383b;
+  }
+  
+  .navbar-collapse {
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  .navlink {
+    color: white;
+    font-size: 1.25rem;
+    margin-left: 1rem;
+  }
+  
+  .navlink:hover,
+  .navlink:focus,
+  .navlink:visited:hover {
+    color: #e5383b;
+  }
+  
+  .navlink:visited {
+    color: #fff;
+  }
+  
+  .navlink:active {
+    color: #a4161a;
+  }
+  
+  /* .iconoper {
+    background-color: #e5383b;
+    color: #fff;
+    font-size: 2rem;
+    border: 0.1rem solid #e5383b;
+    border-radius: 25%;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  } */
+  
+  
+  /* Proyectos */
+  .card {
+    background-color: #161a1d;
+    color: white;
+    transition: transfrom 0.3s ease-in-out;
+  }
+  
+  .card h5 {
+    color: #e5383b;
+  }
+  
+  .card:hover {
+    transform: scale(1.03);
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  .btn-card,
+  .btn-card:visited {
+    background-color: #e5383b;
+    border: none;
+    color: white;
+  }
+  
+  .btn-card:hover,
+  .btn-card:focus {
+    background-color: #ba181b;
+    border: none;
+    box-shadow: none;
+  }
+  
+  .btn-card:active {
+    background-color: #a4161a !important;
+    border: none;
+  }
+  
+  .btn-card-update,
+  .btn-card-update:visited {
+    background-color: #f5f3f4;
+    border: 0.1rem solid #e5383b;
+    color: #e5383b;
+    margin-right: 1rem;
+  }
+  
+  .btn-card-update:hover,
+  .btn-card-update:focus {
+    background-color: #fff;
+    border: 0.1rem solid #ba181b;
+    color: #ba181b;
+  }
+  
+  .btn-card-update:active {
+    background-color: #a4161a !important;
+    border: 0.1rem solid #a4161a !important;
+  }
+  
+  /* formulario */
+  /* form {
+    width: 50%;
+  }
+  
+  form div label {
+      color: #fff;
+      font-size: 1.3rem;
+  }
+  
+  form div input {
+      width: 20%;
+  }
+  
+  #mensaje {
+      resize: none;
+  }
+  
+  .plogin {
+      color: #f5f3f4;
+  } */
+  
+  /* Modal */
+  /* .modal-title {
+      color: black;
+  }
+  
+  .modal-mensaje{
+      color: black;
+  }
+  
+  .encapsuladorojo-modal {
+    border: 0.15rem solid #e5383b;
+  }
+  
+  .text-area-modal {
+      margin-bottom: 1rem;
+      width: 200%;
+  } */
+  
+  /* Adaptable responsivo */
+  /* @media screen and (max-width: 767px) {
+      .navbar-brand {
+          display: none;
+      }
+  } */
+  
+  /* Login and singup */
+  
+  /* .btnper {
+    background-color: #e5383b;
+  }
+  
+  .mensaje {
+    color: white;
+  }
+  
+  .encapsuladorojo {
+    border: 0.15rem solid #e5383b;
+    padding: 1rem;
+    border-radius: 0.4rem;
+    margin: 1.5rem;
+  }
+  
+  
+  .card-mensaje {
+    background-color: #f5f3f4;
+  }
+  
+  .button-container::after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+  
+  .button-container button {
+    float: left;
+    margin-right: 10px;
+  }
+  
+  .hidden {
+    display: none;
+  }
+  
+  @media screen and (max-width: 600px) {
+    #titulo {
+      height: 6rem;
+    }
+  }
+  
+  .navbar-toggler-icon {
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(255, 255, 255, 0.5)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E");
+  }
+  
+  .navbar-toggler {
+    border-color: rgb(255, 255, 255);
+  }
+   */
