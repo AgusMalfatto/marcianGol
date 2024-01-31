@@ -10,6 +10,12 @@ It needs the next parameters:
     - Password: as 'password'.
     - Team: as 'team_name'.
 
+Returns:
+    If the information was Okay, then redirect to login.
+    If the information was not Okay, then returns an object $result with the next keys:
+        - message: Message of what failed.
+        - success: Always in false.
+
 */
 
 include ("../database/connection.php");
