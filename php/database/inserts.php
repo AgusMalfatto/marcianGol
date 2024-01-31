@@ -85,13 +85,23 @@ $count = $row['count'];
 
 // If there is not register in the database, do the inserts
 if ($count == 0) {
-    $name = "Agustin";
-    $last_name = "Malfatto";
-    $email = "agus.malfatto20@gmail.com";
-    $plain_password = "Racing.2010";
+    /* 
+
+        ***************************
+    
+        ACCESS INFORMATION.
+        MODIFY BASED ON YOUR NEEDS.
+
+        ***************************
+    
+    */
+    $name = "";
+    $last_name = "";
+    $email = "";
+    $plain_password = "";
     $admin = 1;
     $active = 1;
-    $id_team = 14;
+    $id_team = 1;
     
     $hashed_password = password_hash($plain_password, PASSWORD_DEFAULT);
 

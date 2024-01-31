@@ -2,10 +2,11 @@
 
 /* ------------------------ DATABASE VARIABLES ------------------------ */
 
+
 $database_config = [
     'servername' => 'localhost',
-    'username' => '',
-    'password' => '',
+    'username' => 'root',
+    'password' => 'Racing.2010',
 ];
 
 ?>
