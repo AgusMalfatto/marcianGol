@@ -38,7 +38,7 @@ if ($result->success) {
             if ($id_team->success) {
 
                 # Insert instruction
-                $insertUserQuery = "UPDATE /* user SET name = ? */, last_name = ?, id_team = ? WHERE id_user = ?";
+                $insertUserQuery = "UPDATE user SET name = ?, last_name = ?, id_team = ? WHERE id_user = ?";
                 $stmt = $conn->prepare($insertUserQuery);
                 
                 if (!$stmt) {
