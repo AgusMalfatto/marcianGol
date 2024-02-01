@@ -21,17 +21,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     if (!$stmt) {
         $result->message .= "Error preparing the query: " . $conn->error;
         $result->success = false;
+        set_error_log($result->message);
     } else {
         $stmt->bind_param("i", $_SESSION['id_user']);
 
         if (!$stmt->execute()) {
             $result->message .= "Error executing the query: " . $stmt->error;
+            set_error_log($result->message);
         } else {
             $stmt->bind_result($result->id_user, $result->name, $result->last_name, $result->email, $result->photo);
 
             if (!$stmt->fetch()) {
                 $result->success = false;
                 $result->message = "No result for the Id User: " . $_SESSION['id_user'];
+                set_error_log($result->message);
             } else {
                 $result->success = true;
             }

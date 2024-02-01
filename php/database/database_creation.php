@@ -11,6 +11,7 @@ $createDatabaseQuery = "CREATE DATABASE IF NOT EXISTS $databaseName";
 if (mysqli_query($conn, $createDatabaseQuery)) {
     echo "<br> Database created successfully";
 } else {
+    set_error_log(mysqli_error($conn));
     die("<br> Database creation has failed: " . mysqli_error($conn));
 }
 
@@ -75,26 +76,31 @@ $createTableComment = "CREATE TABLE IF NOT EXISTS comment (
 if (mysqli_query($conn, $createTableTeam)) {
     echo "<br> Table Team created successfully";
 } else {
+    set_error_log("Error while creating table Team: " . mysqli_error($conn));
     echo "<br> Error while creating table Team: " . mysqli_error($conn);
 }
 if (mysqli_query($conn, $createTableUser)) {
     echo "<br> Table User created successfully";
 } else {
+    set_error_log("Error while creating table User: " . mysqli_error($conn));
     echo "<br> Error while creating table User: " . mysqli_error($conn);
 }
 if (mysqli_query($conn, $createTableLeague)) {
     echo "<br> Table League created successfully";
 } else {
+    set_error_log("Error while creating table League: " . mysqli_error($conn));
     echo "<br> Error while creating table League: " . mysqli_error($conn);
 }
 if (mysqli_query($conn, $createTableForo)) {
     echo "<br> Table Foro created successfully";
 } else {
+    set_error_log("Error while creating table Foro: " . mysqli_error($conn));
     echo "<br> Error while creating table Foro: " . mysqli_error($conn);
 }
 if (mysqli_query($conn, $createTableComment)) {
     echo "<br> Table Comment created successfully";
 } else {
+    set_error_log("Error while creating table Comment" . mysqli_error($conn));
     echo "<br> Error while creating table Comment: " . mysqli_error($conn);
 }
 

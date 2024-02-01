@@ -95,13 +95,13 @@ if ($count == 0) {
         ***************************
     
     */
-    $name = "";
-    $last_name = "";
-    $email = "";
-    $plain_password = "";
+    $name = "Agustín";
+    $last_name = "Malfatto";
+    $email = "agus.malfatto20@gmail.com";
+    $plain_password = "Racing.2010";
     $admin = 1;
     $active = 1;
-    $id_team = 1;
+    $id_team = 14;
     
     $hashed_password = password_hash($plain_password, PASSWORD_DEFAULT);
 
