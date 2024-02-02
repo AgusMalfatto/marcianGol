@@ -1,0 +1,2 @@
+[2024-02-01 15:16:27]  Error preparing the query: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '= ?, last_name = ?, id_team = ? WHERE id_user = ?' at line 1
+[2024-02-01 15:24:56] | [unknown file:unknown line] |  Error preparing the query: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ', last_name = ?, id_team = ? WHERE id_user = ?' at line 1
