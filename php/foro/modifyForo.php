@@ -1,9 +1,10 @@
 <?php
 
-/* ------------------------ INSERT A FORO IN DATABASE ------------------------ */
+/* ------------------------ UPDATE A FORO IN DATABASE ------------------------ */
 /* 
 
 It needs:
+    - The id of the foro.
     - The path of the photo.
     - The name of the foro.
     - The description of the foro.
@@ -22,10 +23,10 @@ include ("../league/getIdLeague.php");
 include ("../logConnection/logError.php");
 include ("validation.php");
 
-// Leer el cuerpo de la solicitud
+// Reading the body of the request.
 $putData = file_get_contents("php://input");
 
-// Decodificar los datos JSON (asumiendo que los datos están en formato JSON)
+// Decode the JSON data
 $data = json_decode($putData, true);
 
 $id_foro = !empty($data['id_foro']) ? $data['id_foro'] : null;
