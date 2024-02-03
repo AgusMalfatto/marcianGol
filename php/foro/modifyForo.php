@@ -84,7 +84,6 @@ if (!$stmt) {
     $result->message .= "Error preparing the query: " . $conn->error;
     $result->success = false;
     set_error_log($result->message);
-    #$stmt->close();
     $conn->close();
     die (json_encode($result));
 }
