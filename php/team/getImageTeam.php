@@ -1,45 +1,64 @@
 <?php
 
 /* ------------------------ GET IMAGE OF THE TEAM ------------------------ */
+/* 
+
+It recives the name of the team.
+
+Returns an object with the next keys:
+    - success: Boolean.
+    - message: Error message.
+    - imagePath: Path of the image.
+
+*/
 
 include ("../session/validateSession.php");
 include('../database/connection.php');
+include('../logConnection/logError.php');
 
 $databaseName = "MarcianGol";
 mysqli_select_db($conn, $databaseName);
 
 $team_name = $_POST['teamName'];
-$response = new stdClass();
-$response->success = false;
+
+$result = new stdClass();
+$result->success = false;
+$result->messsage = "";
+
 
 try {
     $stmt = $conn->prepare("SELECT photo FROM team WHERE name = ?");
     
     if (!$stmt) {
-        throw new Exception("Error preparing the query: " . $conn->error);
+        $result->message = "Error preparing the query: " . $conn->error;
+        set_error_log($result->message);
+        die (json_encode($result));
     }
 
     $stmt->bind_param("s", $team_name);
 
     if (!$stmt->execute()) {
-        throw new Exception("Error executing the query: " . $stmt->error);
+        $result->message = "Error executing the query: " . $stmt->error;
+        set_error_log($result->message);
+        die (json_encode($result));
     }
 
     $stmt->bind_result($photoPath);
     
     if (!$stmt->fetch()) {
-        throw new Exception("There is no result for the team: " . $team_name);
+        $result->message = "There is no result for the team: " . $team_name;
+        die (json_encode($result));
     }
 
-    $response->success = true;
-    $response->imagePath = $photoPath;
+    $result->success = true;
+    $result->imagePath = $photoPath;
 
 } catch (Exception $e) {
-    $response->error = $e->getMessage();
+    $result->error = $e->getMessage();
 }
 
 // Return the image path as a JSON
-echo json_encode($response);
+echo json_encode($result);
 
 // Close the statement and the connection
 if ($stmt) {

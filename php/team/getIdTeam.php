@@ -20,6 +20,8 @@ function get_team_id($conn, $team_name){
                 id_team: ID of the team in case it was captured.
     */
 
+    include('../logConnection/logError.php');
+
     $result = new stdClass();
     $result->success = false;
     $result->id_team = -1;
