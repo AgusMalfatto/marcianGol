@@ -13,6 +13,7 @@ Returns:
 */
 
 include ("../database/connection.php");
+include ("../logConnection/logError.php");
 
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
@@ -30,12 +31,14 @@ mysqli_select_db($conn, $db_name);
 $stmt = $conn->prepare("SELECT id_user, password, name, active FROM user WHERE email = ?");
 if (!$stmt) {
     throw new Exception("Error preparing the query: " . $conn->error);
+    set_error_log("Error preparing the query: " . $conn->error);
 }
 
 $stmt->bind_param("s", $email);
 
 if (!$stmt->execute()) {
     throw new Exception("Error executing the query: " . $stmt->error);
+    set_error_log("Error executing the query: " . $conn->error);
 }
 
 $stmt->bind_result($id_user, $stored_password, $name, $active);
