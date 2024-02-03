@@ -17,6 +17,8 @@ function get_league_id($conn, $league_name) {
                 id_league: ID of the league in case it was captured.
     */
     
+    include ("../logConnection/logError.php");
+
     $result = new stdClass();
     $result->message = "";
 
@@ -31,12 +33,14 @@ function get_league_id($conn, $league_name) {
             if (!$stmt) {
                 $result->success = false;
                 $result->message .= " || Error preparing the query: " . $conn->error;
+                set_error_log($result->message);
             }
 
             $stmt->bind_param("s", $league_name);
 
             if (!$stmt->execute()) {
                 $result->message .= " || Error executing the query: " . $stmt->error;
+                set_error_log($result->message);
             }
 
             $stmt->bind_result($id_league);
