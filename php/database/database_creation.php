@@ -48,7 +48,7 @@ $createTableForo = "CREATE TABLE IF NOT EXISTS foro (
     id_foro INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     photo VARCHAR(50) NOT NULL,
     name VARCHAR(50) NOT NULL,
-    description VARCHAR(50) NOT NULL,
+    description VARCHAR(150) NOT NULL,
     date_creation DATE NOT NULL,
     id_league INT(6) UNSIGNED NOT NULL,
     id_user INT(6) UNSIGNED NOT NULL,
