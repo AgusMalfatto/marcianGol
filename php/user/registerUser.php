@@ -20,6 +20,7 @@ Returns:
 
 include ("../database/connection.php");
 include ("validation.php");
+include ("../logConnection/logError.php");
 
 
 $name = !empty($_POST['name']) ? $_POST['name'] : null;
@@ -74,6 +75,7 @@ $stmt = $conn->prepare($insertUserQuery);
 if (!$stmt) {
     $result->message .= " Error preparing the query: " . $conn->error;
     $result->success = false;
+    set_error_log($result->message);
     die (json_encode($result));
 }
 
@@ -82,6 +84,7 @@ $stmt->bind_param("ssssi", $name, $last_name, $email, $hashed_password, $id_team
 if (!$stmt->execute()) {
     $result->message .= " Error executing the query: " . $stmt->error;
     $result->success = false;
+    set_error_log($result->message);
     die (json_encode($result));
 }
 

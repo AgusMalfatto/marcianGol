@@ -16,6 +16,9 @@ function is_email_valid($conn, $email) {
             If there is no $email in the database then returns true.
             If the $email is in the database then returns false.
     */
+
+    include ("../logConnection/logError.php");
+
     if (empty($email)) {
         return false;
     }
@@ -25,12 +28,14 @@ function is_email_valid($conn, $email) {
 
         if (!$stmt) {
             throw new Exception("Error preparing the query: " . $conn->error);
+            set_error_log("Error preparing the query: " . $stmt->error);    
         }
 
         $stmt->bind_param("s", $email);
 
         if (!$stmt->execute()) {
             throw new Exception("Error executing the query: " . $stmt->error);
+            set_error_log("Error executing the query: " . $stmt->error);    
         }
 
         $exists = $stmt->fetch();
