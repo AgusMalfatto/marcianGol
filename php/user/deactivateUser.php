@@ -30,7 +30,7 @@ if (!$stmt) {
         $message->status = false;
         $message->error = " Error executing the query: " . $stmt->error;
     } else {
-        $message->status = true;
+        header('location: ../../index.php');
     }
 }
 
