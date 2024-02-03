@@ -53,11 +53,6 @@ function get_league_id($conn, $league_name) {
             $result->message = $e->error;
         }
         
-        // Close the statement and the connection
-        if ($stmt) {
-            $stmt->close();
-        }
-        $conn->close();
     }
 
     
