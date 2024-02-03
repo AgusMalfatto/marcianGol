@@ -9,7 +9,7 @@ function is_name_valid($name) {
 
 
 # Validate the length of the foro description
-function is_name_valid($description) {
+function is_description_valid($description) {
     return strlen($description) < 150;
 }
 

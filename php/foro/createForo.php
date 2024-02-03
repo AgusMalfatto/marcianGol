@@ -20,6 +20,7 @@ include ("../session/validateSession.php");
 include ("../database/connection.php");
 include ("../league/getIdLeague.php");
 include ("../logConnection/logError.php");
+include ("validation.php");
 
 $photo = !empty($_POST['photo']) ? $_POST['photo'] : null;
 $name = !empty($_POST['name']) ? $_POST['name'] : null;
@@ -30,9 +31,24 @@ $result = new stdClass();
 $result->success = true;
 $result->message = "";
 
+# Evaluate empty values
 if (empty($photo) || empty($name) || empty($description) || empty($name_league)) {
     $result->success = false;
     $result->message .= "All field must be complete";
+    die (json_encode($result));
+}
+
+# Evaluate length of name
+if (!is_name_valid($name)) {
+    $result->success = false;
+    $result->message .= "Name must be less than 50 characters";
+    die (json_encode($result));
+}
+
+# Evaluate length of description
+if (!is_description_valid($description)) {
+    $result->success = false;
+    $result->message .= "Description must be less than 150 characters";
     die (json_encode($result));
 }
 
@@ -49,6 +65,8 @@ if (!$result_league->success) {
 
 $date_creation = date('Y-m-d');
 
+
+/* Query execution */
 $stmt = $conn->prepare("INSERT INTO foro (photo, name, description, date_creation, id_league, id_user) VALUES (?, ?, ?, ?, ?, ?)");
 
 if (!$stmt) {
