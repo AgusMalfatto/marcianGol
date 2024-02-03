@@ -4,7 +4,10 @@
 /* 
 
 It need the User Id as 'id_user.
-Returns in a JSON format an object with a 'status' key on true if the user was deactivated, and 'error' key if there was an error.
+
+Returns an object with the next keys:
+    - success: Boolean.
+    - message: If there were an error then it saves here.
 
 */
 
@@ -21,14 +24,14 @@ $updateQuery = "UPDATE user SET active = 0 WHERE id_user = ?";
 $stmt = $conn->prepare($updateQuery);
 
 if (!$stmt) {
-    $message->status = false;
-    $message->error = " Error preparing the query: " . $conn->error;
+    $message->success = false;
+    $message->message = " Error preparing the query: " . $conn->error;
 } else {
     $stmt->bind_param("i", $_SESSION['id_user']);
 
     if (!$stmt->execute()) {
-        $message->status = false;
-        $message->error = " Error executing the query: " . $stmt->error;
+        $message->success = false;
+        $message->message = " Error executing the query: " . $stmt->error;
     } else {
         header('location: ../../index.php');
     }
