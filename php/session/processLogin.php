@@ -44,7 +44,7 @@ $exists = $stmt->fetch();
 $stmt->close();
 
 // Verify if the user exists and the password is correct
-if ($exists && password_verify($password, $stored_password)) {
+if ($exists && password_verify($password, $stored_password) && $active) {
 
     # Create a SESSION for the user
     session_start();
