@@ -13,7 +13,7 @@ Returns:
 */
 
 include ("../database/connection.php");
-include ("../logConnection/logError.php");
+include ("../error_stmt/errorFunctions.php");
 
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
@@ -21,8 +21,10 @@ error_reporting(E_ALL);
 $email = isset($_POST['email']) ? $_POST['email'] : null;
 $password = isset($_POST['password']) ? $_POST['password'] : null;
 
+$result = new stdClass();
+
 if (empty($email) || empty($password)) {
-    echo json_encode(false);
+    error_request($result, "All field must be complete");
 }
 
 $db_name = "marciangol";
@@ -30,15 +32,13 @@ mysqli_select_db($conn, $db_name);
 
 $stmt = $conn->prepare("SELECT id_user, password, name, active FROM user WHERE email = ?");
 if (!$stmt) {
-    throw new Exception("Error preparing the query: " . $conn->error);
-    set_error_log("Error preparing the query: " . $conn->error);
+    error_stmt($result, "Error preparing the query: " . $conn->error, $stmt, $conn);
 }
 
 $stmt->bind_param("s", $email);
 
 if (!$stmt->execute()) {
-    throw new Exception("Error executing the query: " . $stmt->error);
-    set_error_log("Error executing the query: " . $conn->error);
+    error_stmt($result, "Error executing the query: " . $conn->error, $stmt, $conn);
 }
 
 $stmt->bind_result($id_user, $stored_password, $name, $active);
@@ -59,6 +59,7 @@ if ($exists && password_verify($password, $stored_password) && $active) {
 
     header("location: ../../index.html");
 }
+$result->success = false;
 
-echo json_encode(false);
+echo json_encode($result);
 ?>
