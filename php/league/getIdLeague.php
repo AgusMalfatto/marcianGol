@@ -16,48 +16,42 @@ function get_league_id($conn, $league_name) {
                 message: Message of the error in case there were a problem.
                 id_league: ID of the league in case it was captured.
     */
+    include_once ("../error_stmt/errorFunctions.php");
     
-    include ("../logConnection/logError.php");
 
     $result = new stdClass();
-    $result->message = "";
 
     if (empty($league_name)) {
-        $result->success = false;
-        $result->message = "Name league can't be null";
-    } else {
-        
-        try {
-            $stmt = $conn->prepare("SELECT id_league FROM league WHERE description = ? LIMIT 1");
-            
-            if (!$stmt) {
-                $result->success = false;
-                $result->message .= " || Error preparing the query: " . $conn->error;
-                set_error_log($result->message);
-            }
-
-            $stmt->bind_param("s", $league_name);
-
-            if (!$stmt->execute()) {
-                $result->message .= " || Error executing the query: " . $stmt->error;
-                set_error_log($result->message);
-            }
-
-            $stmt->bind_result($id_league);
-            
-            if (!$stmt->fetch()) {
-                $result->success = false;
-                $result->message = " || No result for the league: " . $league_name;
-            } else {
-                $result->success = true;
-                $result->id_league = $id_league;            
-            }
-
-        } catch (Exception $e) {
-            $result->message = $e->error;
-        }
-        
+        error_request($result, "Name league can't be null");
     }
+        
+    try {
+        $stmt = $conn->prepare("SELECT id_league FROM league WHERE description = ? LIMIT 1");
+        
+        if (!$stmt) {
+            error_stmt($result, "Error preparing the query: " . $conn->error, $stmt, $conn);
+        }
+
+        $stmt->bind_param("s", $league_name);
+
+        if (!$stmt->execute()) {
+            error_stmt($result, "Error executing the query: " . $conn->error, $stmt, $conn);
+        }
+
+        $stmt->bind_result($id_league);
+        
+        if (!$stmt->fetch()) {
+            error_request($result, "No result for the league: " . $league_name);
+        } else {
+            $result->success = true;
+            $result->id_league = $id_league;            
+        }
+
+    } catch (Exception $e) {
+        $result->message = $e->error;
+    }
+        
+    
 
     
     return $result;
