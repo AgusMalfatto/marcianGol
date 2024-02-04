@@ -20,12 +20,12 @@ Returns an object with the next keys:
 
 include ("../session/validateSession.php");
 include ("../database/connection.php");
+include ("../error_stmt/errorFunctions.php");
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     
     $result = new stdClass();
     $result->success = true;
-    $result->message = "";
 
     $databaseName = "marcianGol";
     mysqli_select_db($conn, $databaseName);
@@ -37,26 +37,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
                             WHERE U.id_user = ?");
 
     if (!$stmt) {
-        $result->message .= "Error preparing the query: " . $conn->error;
-        $result->success = false;
-        set_error_log($result->message);
-        die (json_encode($result));
+        error_stmt($result, "Error preparing the query: " . $conn->error, $stmt, $conn);
     } 
     
     $stmt->bind_param("i", $_SESSION['id_user']);
 
     if (!$stmt->execute()) {
-        $result->message .= "Error executing the query: " . $stmt->error;
-        set_error_log($result->message);
-        die (json_encode($result));
+        error_stmt($result, "Error executing the query: " . $conn->error, $stmt, $conn);
     } 
     
     $stmt->bind_result($result->id_user, $result->name, $result->last_name, $result->email, $result->photo);
 
     if (!$stmt->fetch()) {
-        $result->success = false;
-        $result->message = "No result for the Id User: " . $_SESSION['id_user'];
-        set_error_log($result->message);
+        error_request($result, "No result for the Id User: " . $_SESSION['id_user']);
     } else {
         $result->success = true;
     }

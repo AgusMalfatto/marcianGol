@@ -17,7 +17,7 @@ function is_email_valid($conn, $email) {
             If the $email is in the database then returns false.
     */
 
-    include ("../logConnection/logError.php");
+    include_once ("../logConnection/logError.php");
 
     if (empty($email)) {
         return false;

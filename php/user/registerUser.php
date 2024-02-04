@@ -20,7 +20,8 @@ Returns:
 
 include ("../database/connection.php");
 include ("validation.php");
-include ("../logConnection/logError.php");
+include_once ("../error_stmt/errorFunctions.php");
+include_once ("../team/getIdTeam.php");
 
 
 $name = !empty($_POST['name']) ? $_POST['name'] : null;
@@ -30,13 +31,10 @@ $plain_password = !empty($_POST['password']) ? $_POST['password'] : null;
 $team_name = !empty($_POST['team_name']) ? $_POST['team_name'] : null;
 
 $result = new stdClass();
-$result->message = "";
 $result->success = true;
 
 if(($name === null) || ($last_name === null) || ($email === null) || ($plain_password === null) || ($team_name === null)) {
-    $result->message .= " All fields must be completed.";
-    $result->success = false;
-    die (json_encode($result));
+    error_request($result, "All field must be complete");
 }
 
 $databaseName = "marcianGol";
@@ -44,28 +42,21 @@ mysqli_select_db($conn, $databaseName);
 
 # Validate the email in the database
 if (!is_email_valid($conn, $email)){
-    $result->message .= "The email already exists.";
-    $result->success = false;
-    die (json_encode($result));
+    error_request($result, "The email already exists.");
 } 
 
 # Validate the password format
 if (!is_pass_valid($plain_password)) {
-    $result->message .= "The password is not valid.";
-    $result->success = false;
-    die (json_encode($result));
+    error_request($result, "The password is not valid.");
 }
 
 $hashed_password = password_hash($plain_password, PASSWORD_DEFAULT);
 
 # Get the id team of the user
-include ("../team/getIdTeam.php");
 $id_team = get_team_id($conn, $team_name);
 
-if ($id_team->success) {
-    $result->message .= "The team '" . $team_name ."' doesn't exists";
-    $result->success = false;
-    die (json_encode($result));
+if (!$id_team->success) {
+    error_request($result, "The team '" . $team_name ."' doesn't exists");
 }
 
 # Insert instruction
@@ -73,19 +64,13 @@ $insertUserQuery = "INSERT INTO user (name, last_name, email, password, id_team)
 $stmt = $conn->prepare($insertUserQuery);
 
 if (!$stmt) {
-    $result->message .= " Error preparing the query: " . $conn->error;
-    $result->success = false;
-    set_error_log($result->message);
-    die (json_encode($result));
+    error_stmt($result, "Error preparing the query: " . $conn->error, $stmt, $conn);
 }
 
 $stmt->bind_param("ssssi", $name, $last_name, $email, $hashed_password, $id_team->id_team);
 
 if (!$stmt->execute()) {
-    $result->message .= " Error executing the query: " . $stmt->error;
-    $result->success = false;
-    set_error_log($result->message);
-    die (json_encode($result));
+    error_stmt($result, "Error executing the query: " . $conn->error, $stmt, $conn);
 }
 
 $stmt->close();
