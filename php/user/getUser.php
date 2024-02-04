@@ -9,6 +9,11 @@ It need the User Id as 'id_user.
 Returns an object with the next keys:
     - success: Boolean.
     - message: If there were an error then it saves here.
+    - id_user: User ID.
+    - name: Name of the user.
+    - last_name: Last name of the user.
+    - email: Email of the user.
+    - photo: Path of the photo.
 
 */
 
