@@ -13,8 +13,9 @@ Returns an object with the next keys:
 
 include ("../session/validateSession.php");
 include ("../database/connection.php");
+include ("../logConnection/logError.php");
 
-$message = new stdClass();
+$result = new stdClass();
 
 $databaseName = "marcianGol";
 mysqli_select_db($conn, $databaseName);
@@ -24,14 +25,16 @@ $updateQuery = "UPDATE user SET active = 0 WHERE id_user = ?";
 $stmt = $conn->prepare($updateQuery);
 
 if (!$stmt) {
-    $message->success = false;
-    $message->message = " Error preparing the query: " . $conn->error;
+    $result->success = false;
+    $result->message = " Error preparing the query: " . $conn->error;
+    set_error_log($result->message);
 } else {
     $stmt->bind_param("i", $_SESSION['id_user']);
 
     if (!$stmt->execute()) {
-        $message->success = false;
-        $message->message = " Error executing the query: " . $stmt->error;
+        $result->success = false;
+        $result->message = " Error executing the query: " . $stmt->error;
+        set_error_log($result->message);
     } else {
         header('location: ../../index.php');
     }
@@ -40,5 +43,5 @@ if (!$stmt) {
 $stmt->close();
 $conn->close(); 
 
-echo json_encode($message);
+echo json_encode($result);
 ?>
