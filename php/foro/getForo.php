@@ -9,7 +9,7 @@ If it recives an id of the foro, it returns that one. If not, then returns all t
 Returns an object with the next keys:
     - success: Boolean.
     - message: Error message.
-    - data: Array of objects, each index is one foro.
+    - data: Array of objects, each index is one foro (id_foro, photo, name, description, date_creation, description).
 
 */
 
