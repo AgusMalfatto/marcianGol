@@ -20,40 +20,31 @@ function get_team_id($conn, $team_name){
                 id_team: ID of the team in case it was captured.
     */
 
-    include('../logConnection/logError.php');
+    include_once ('../error_stmt/errorFunctions.php');
 
     $result = new stdClass();
     $result->success = false;
     $result->id_team = -1;
 
-    try {
-        $stmt = $conn->prepare("SELECT id_team FROM team WHERE name = ?");
-        
-        if (!$stmt) {
-            $result->message = "Error preparing the query: " . $conn->error;
-            $result->success = false;
-        }
+    $stmt = $conn->prepare("SELECT id_team FROM team WHERE name = ?");
+    
+    if (!$stmt) {
+        error_stmt($result, "Error preparing the query: " . $conn->error, $stmt, $conn);
+    }
 
-        $stmt->bind_param("s", $team_name);
+    $stmt->bind_param("s", $team_name);
 
-        if (!$stmt->execute()) {
-            $result->message = "Error executing the query: " . $stmt->error;
-            $result->success = false;
-        }
+    if (!$stmt->execute()) {
+        error_stmt($result, "Error executing the query: " . $conn->error, $stmt, $conn);
+    }
 
-        $stmt->bind_result($id_team);
-        
-        if (!$stmt->fetch()) {
-            $result->success = false;
-            $result->message = "No result for the name: " . $team_name;
-            $id_team = -1;
-        } else {
-            $result->success = true;
-            $result->id_team = $id_team;
-        }
-
-    } catch (Exception $e) {
-        $result->message = $e->error;
+    $stmt->bind_result($id_team);
+    
+    if (!$stmt->fetch()) {
+            error_request($result, "No result for the team: " . $team_name);
+    } else {
+        $result->success = true;
+        $result->id_team = $id_team;
     }
 
     return $result;
