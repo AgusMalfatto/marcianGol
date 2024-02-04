@@ -13,16 +13,14 @@ Returns an object with the next keys:
 
 include ("../session/validateSession.php");
 include ("../database/connection.php");
-include ("../logConnection/logError.php");
+include ("../error_stmt/errorFunctions.php");
 
 $id_foro = !empty($_POST['id_foro']) ? $_POST['id_foro'] : null;
 
 $result = new stdClass();
 
 if (empty($id_foro)) {
-    $result->success = false;
-    $result->message = "All fields must be complete.";
-    die (json_encode($result));
+    error_request($result, "All fields must be complete.");
 }
 
 $databaseName = "marcianGol";
@@ -33,21 +31,18 @@ $updateQuery = "UPDATE foro SET active = 0 WHERE id_foro = ?";
 $stmt = $conn->prepare($updateQuery);
 
 if (!$stmt) {
-    $result->success = false;
-    $result->message = " Error preparing the query: " . $conn->error;
-    set_error_log($result->message);
-} else {
-    $stmt->bind_param("i", $id_foro);
-
-    if (!$stmt->execute()) {
-        $result->success = false;
-        $result->message = " Error executing the query: " . $stmt->error;
-        set_error_log($result->message);
-    } else {
-        $result->id = $id_foro;
-        $result->success = true;
-    }
+    error_stmt($result, "Error preparing the query: " . $conn->error, $stmt, $conn);
 }
+
+$stmt->bind_param("i", $id_foro);
+
+if (!$stmt->execute()) {    
+    error_stmt($result, "Error executing the query: " . $conn->error, $stmt, $conn);
+} else {
+    $result->id = $id_foro;
+    $result->success = true;
+}
+
 
 $stmt->close();
 $conn->close(); 
