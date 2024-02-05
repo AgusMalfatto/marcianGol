@@ -18,6 +18,7 @@ include ("../error_stmt/errorFunctions.php");
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
+
 $email = isset($_POST['email']) ? $_POST['email'] : null;
 $password = isset($_POST['password']) ? $_POST['password'] : null;
 
@@ -30,7 +31,7 @@ if (empty($email) || empty($password)) {
 $db_name = "marciangol";
 mysqli_select_db($conn, $db_name);
 
-$stmt = $conn->prepare("SELECT id_user, password, name, active FROM user WHERE email = ?");
+$stmt = $conn->prepare("SELECT id_user, password, name, active, admin FROM user WHERE email = ?");
 if (!$stmt) {
     error_stmt($result, "Error preparing the query: " . $conn->error, $stmt, $conn);
 }
@@ -41,7 +42,7 @@ if (!$stmt->execute()) {
     error_stmt($result, "Error executing the query: " . $conn->error, $stmt, $conn);
 }
 
-$stmt->bind_result($id_user, $stored_password, $name, $active);
+$stmt->bind_result($id_user, $stored_password, $name, $active, $admin);
 $exists = $stmt->fetch();
 
 $stmt->close();
@@ -56,8 +57,9 @@ if ($exists && password_verify($password, $stored_password) && $active) {
     $_SESSION['id_user'] = $id_user;
     $_SESSION['name'] = $name;
     $_SESSION['active'] = $active;
+    $_SESSION['admin'] = $admin;
 
-    header("location: ../../index.html");
+    header("location: ../../design/index.html");
 }
 $result->success = false;
 
