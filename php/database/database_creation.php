@@ -61,12 +61,13 @@ $createTableForo = "CREATE TABLE IF NOT EXISTS foro (
 
 $createTableComment = "CREATE TABLE IF NOT EXISTS comment (
     id_comment INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    description VARCHAR(50) NOT NULL,
+    description VARCHAR(150) NOT NULL,
     date_comment DATE NOT NULL,
     likes INT(6) NOT NULL DEFAULT 0,
     dislikes INT(6) NOT NULL DEFAULT 0,
     id_foro INT(6) UNSIGNED NOT NULL,
     id_user INT(6) UNSIGNED NOT NULL,
+    active BOOLEAN NOT NULL DEFAULT TRUE,
 
     FOREIGN KEY (id_foro) REFERENCES foro(id_foro) ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY (id_user) REFERENCES user(id_user) ON DELETE CASCADE ON UPDATE CASCADE
