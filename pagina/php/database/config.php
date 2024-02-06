@@ -5,8 +5,8 @@
 
 $database_config = [
     'servername' => 'localhost',
-    'username' => '',
-    'password' => '',
+    'username' => 'root',
+    'password' => 'root',
 ];
 
 ?>
