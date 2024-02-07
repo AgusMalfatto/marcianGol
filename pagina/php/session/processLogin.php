@@ -59,7 +59,7 @@ if ($exists && password_verify($password, $stored_password) && $active) {
     $_SESSION['active'] = $active;
     $_SESSION['admin'] = $admin;
 
-    header("location: ../../design/index.html");
+    header("location: ../../design/index.php");
 }
 $result->success = false;
 
