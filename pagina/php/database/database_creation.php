@@ -1,6 +1,7 @@
 <?php
 
 include ('connection.php');
+include ('../logConnection/logError.php');
 
 /* ------------------------ DATABASE CREATION ------------------------ */
 
@@ -63,8 +64,6 @@ $createTableComment = "CREATE TABLE IF NOT EXISTS comment (
     id_comment INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     description VARCHAR(150) NOT NULL,
     date_comment DATE NOT NULL,
-    likes INT(6) NOT NULL DEFAULT 0,
-    dislikes INT(6) NOT NULL DEFAULT 0,
     id_foro INT(6) UNSIGNED NOT NULL,
     id_user INT(6) UNSIGNED NOT NULL,
     active BOOLEAN NOT NULL DEFAULT TRUE,
@@ -72,6 +71,16 @@ $createTableComment = "CREATE TABLE IF NOT EXISTS comment (
     FOREIGN KEY (id_foro) REFERENCES foro(id_foro) ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY (id_user) REFERENCES user(id_user) ON DELETE CASCADE ON UPDATE CASCADE
     
+)";
+
+$createTableLikes = "CREATE TABLE IF NOT EXISTS likes (
+    id_comment INT(6) UNSIGNED NOT NULL,
+    id_user INT(6) UNSIGNED NOT NULL,
+    is_like BOOLEAN NOT NULL,
+    PRIMARY KEY (id_comment, id_user),
+
+    FOREIGN KEY (id_comment) REFERENCES comment(id_comment) ON DELETE CASCADE ON UPDATE CASCADE,    
+    FOREIGN KEY (id_user) REFERENCES user(id_user) ON DELETE CASCADE ON UPDATE CASCADE   
 )";
 
 if (mysqli_query($conn, $createTableTeam)) {
@@ -103,6 +112,12 @@ if (mysqli_query($conn, $createTableComment)) {
 } else {
     set_error_log("Error while creating table Comment" . mysqli_error($conn));
     echo "<br> Error while creating table Comment: " . mysqli_error($conn);
+}
+if (mysqli_query($conn, $createTableLikes)) {
+    echo "<br> Table Like created successfully";
+} else {
+    set_error_log("Error while creating table Likes" . mysqli_error($conn));
+    echo "<br> Error while creating table Likes: " . mysqli_error($conn);
 }
 
 include ("inserts.php");
