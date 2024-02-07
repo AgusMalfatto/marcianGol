@@ -57,7 +57,7 @@
 
 <div class="login-container">
     <h2>Login</h2>
-    <form id="loginForm" class="login-form" method="post" action="../php/session/processLogin.php">
+    <form id="loginForm" class="login-form" method="post" action="../../php/session/processLogin.php">
         <input type="text" id="email" name="email" placeholder="Email" required>
         <input type="password" id="password" name="password" placeholder="Contraseña" required>
         <button type="submit" id="login_button">Iniciar Sesión</button>
