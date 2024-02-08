@@ -1,7 +1,5 @@
 <?php
-
-include ("../php/session/validateSession.php");
-
+include('../../php/session/validateSession.php');
 ?>
 
 <!-- ARCHIVO CREADO COMO BASE PARA EL DISENO -->
@@ -31,7 +29,7 @@ include ("../php/session/validateSession.php");
               <a class="nav-link" href="#">Features</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="../php/session/destroySession.php">Cerrar Sesión</a>
+              <a class="nav-link" href="#">Pricing</a>
             </li>
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
