@@ -23,6 +23,7 @@ $email = isset($_POST['email']) ? $_POST['email'] : null;
 $password = isset($_POST['password']) ? $_POST['password'] : null;
 
 $result = new stdClass();
+$result->success = false;
 
 if (empty($email) || empty($password)) {
     error_request($result, "All field must be complete");
@@ -47,9 +48,10 @@ $exists = $stmt->fetch();
 
 $stmt->close();
 
+
 // Verify if the user exists and the password is correct
 if ($exists && password_verify($password, $stored_password) && $active) {
-
+    
     # Create a SESSION for the user
     session_start();
     
@@ -58,10 +60,9 @@ if ($exists && password_verify($password, $stored_password) && $active) {
     $_SESSION['name'] = $name;
     $_SESSION['active'] = $active;
     $_SESSION['admin'] = $admin;
-
-    header("location: ../../design/index.php");
+    
+    $result->success = true;
 }
-$result->success = false;
 
 echo json_encode($result);
 ?>
