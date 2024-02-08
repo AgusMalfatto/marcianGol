@@ -8,8 +8,7 @@ It needs the next parameters:
     - Password: as 'password'.
 
 Returns:
-    If the login information is correct then it redirects to the index.
-    If not, it returns false.
+    If the login information is correct then it returns True, and if not, it returns false.
 */
 
 include ("../database/connection.php");
