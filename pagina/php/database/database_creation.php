@@ -62,7 +62,7 @@ $createTableForo = "CREATE TABLE IF NOT EXISTS foro (
 
 $createTableComment = "CREATE TABLE IF NOT EXISTS comment (
     id_comment INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    description VARCHAR(150) NOT NULL,
+    description VARCHAR(200) NOT NULL,
     date_comment DATE NOT NULL,
     id_foro INT(6) UNSIGNED NOT NULL,
     id_user INT(6) UNSIGNED NOT NULL,
