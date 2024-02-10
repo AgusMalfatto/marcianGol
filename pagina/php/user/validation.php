@@ -70,8 +70,9 @@ function is_pass_valid($pass) {
     $uppercase = preg_match('/[A-Z]/', $pass);
     $lowercase = preg_match('/[a-z]/', $pass);
     $number = preg_match('/[0-9]/', $pass);
+    $length = strlen($pass) > 8;
 
-    return $uppercase && $lowercase && $number;
+    return $uppercase && $lowercase && $number && $length;
 }
 
 ?>
