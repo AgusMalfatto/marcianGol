@@ -76,10 +76,6 @@ if (!$stmt->execute()) {
 $stmt->close();
 $conn->close(); 
 
-if ($result->success) {
-    header('location: ../../index.html');
-}
-
 echo json_encode($result);
 
 ?>

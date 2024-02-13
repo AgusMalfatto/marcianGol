@@ -46,6 +46,17 @@
             box-sizing: border-box;
         }
 
+        .login-form select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            background-color: white;
+        }
+        
+
         .login-form button {
             /* background-color: #4caf50;
                 color: #fff;
@@ -70,14 +81,17 @@
     <main>
         <div class="login-container">
             <h2>Sing Up</h2>
-            <form id="singUpForm" class="login-form" method="post" action="../php/session/processLogin.php">
+            <form id="singUpForm" class="login-form" method="post" action="">
                 <input type="text" id="email" name="email" placeholder="Email" required>
                 <input type="password" id="password" name="password" placeholder="Contraseña" required>
                 <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirmar Contraseña" required>
 
                 <input type="text" id="name" name="name" placeholder="Name" required>
-                <input type="text" id="lastName" name="lastName" placeholder="Last Name" required>
+                <input type="text" id="last_name" name="last_name" placeholder="Last Name" required>
 
+                <select name="team_name" id="team_name">
+               <!-- aca se agregan opciones de equipo -->
+                </select>
 
 
                 <button type="submit" id="registerBtn" class="btn btn-success">Registrarse</button>
