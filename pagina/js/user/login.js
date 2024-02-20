@@ -27,19 +27,21 @@ $(document).ready(function () {
 
     $('#loginBtn').click(function (event) {
         event.preventDefault();
+        var datosLoginForm = $('#loginForm').serialize();
 
-        var loginForm = new FormData($('#loginForm')[0]);
         var objAjax = $.ajax({
             type: "post",
             url: "../../php/session/processLogin.php",
-            enctype: 'multipart/form-data',
-
-            data: {
-
-                email: email.value,
-                password: password.value
-            },
-            success: function (respuestaDelServer) {
+            data: datosLoginForm,
+            success: function (respuesta) {
+                var data = JSON.parse(respuesta);
+                alert(data.success);
+                if (data.success == true) {
+                    alert("ENTRAMOSSSS");
+                    window.location.href = "../../design/foro/home.php";
+                }else{
+                    alert("Login failed. Please check your credentials.");
+                }
                 
             }
 
