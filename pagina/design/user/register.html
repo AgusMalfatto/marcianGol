@@ -23,7 +23,7 @@
             height: 100vh;
         }
 
-        .login-container {
+        .singUp-container {
             background-color: #fff;
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -32,12 +32,12 @@
             text-align: center;
         }
 
-        .login-container h2 {
+        .singUp-container h2 {
             margin-bottom: 20px;
             color: #333;
         }
 
-        .login-form input {
+        .singUp-form input {
             width: 100%;
             padding: 10px;
             margin-bottom: 15px;
@@ -46,7 +46,7 @@
             box-sizing: border-box;
         }
 
-        .login-form select {
+        .singUp-form select {
             width: 100%;
             padding: 10px;
             margin-bottom: 15px;
@@ -55,9 +55,23 @@
             box-sizing: border-box;
             background-color: white;
         }
+
+        .singUp-form label {
+            margin-bottom: 15px;
+            width: 100%;
+            padding: 10px;
+            
+            background-color: rgb(255, 93, 93);
+            border-radius: 4px;
+            color: white;
+        }
+
+        .oculto {
+            display: none;
+        }
         
 
-        .login-form button {
+        .singUp-form button {
             /* background-color: #4caf50;
                 color: #fff;
                 padding: 10px 15px;
@@ -68,7 +82,7 @@
             margin: 5px;
         }
 
-        /* .login-form button:hover {
+        /* .singUp-form button:hover {
                 background-color: #45a049;
             } */
     </style>
@@ -79,9 +93,10 @@
         <!-- place navbar here -->
     </header>
     <main>
-        <div class="login-container">
+        <div class="singUp-container">
             <h2>Sing Up</h2>
-            <form id="singUpForm" class="login-form" method="post" action="">
+            <form id="singUpForm" class="singUp-form" method="post" action="">
+                <label for="errorMessage" id="errorMessage" class="oculto"></label>
                 <input type="text" id="email" name="email" placeholder="Email" required>
                 <input type="password" id="password" name="password" placeholder="Contraseña" required>
                 <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirmar Contraseña" required>
