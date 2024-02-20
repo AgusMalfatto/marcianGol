@@ -65,6 +65,20 @@ if (isset($_SESSION['idSesion'])) {
             margin: 5px;
         }
 
+        .login-form label {
+            margin-bottom: 15px;
+            width: 100%;
+            padding: 10px;
+            background-color: rgb(255, 93, 93);
+            border-radius: 4px;
+            color: white;
+        }
+
+        .oculto {
+            display: none;
+        }
+        
+
         /* .login-form button:hover {
             background-color: #45a049;
         } */
@@ -76,6 +90,8 @@ if (isset($_SESSION['idSesion'])) {
     <div class="login-container">
         <h2>Login</h2>
         <form id="loginForm" class="login-form" method="post" action="../php/session/processLogin.php">
+            <label for="errorMessage" id="errorMessage" class="oculto"></label>
+
             <input type="text" id="email" name="email" placeholder="Email" required>
             <input type="password" id="password" name="password" placeholder="Contraseña" required>
             <button type="submit" id="loginBtn" class="btn btn-success">Iniciar Sesión</button>
@@ -97,7 +113,7 @@ if (isset($_SESSION['idSesion'])) {
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
     <!-- JavaScript -->
-        <script src="../../js/user/login.js"></script>
+    <script src="../../js/user/login.js"></script>
 
 </body>
 
