@@ -115,7 +115,9 @@ $(document).ready(function () {
 
                         window.location.href = "../../design/user/login.php";
                     } else {
-                        alert("Login failed. Please check your credentials.");
+                        $("#errorMessage").empty();
+                        $("#errorMessage").text(data.message);
+                        $("#errorMessage").removeClass("oculto");
                     }
 
                 }, error: function (error) {
