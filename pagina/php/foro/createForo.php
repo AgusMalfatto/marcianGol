@@ -55,6 +55,7 @@ if (!$result_league->success) {
 }   
 
 $date_creation = date('Y-m-d');
+$photo = "../../multimedia/" . $photo . ".png";
 
 
 /* Query execution */
