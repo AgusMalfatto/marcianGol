@@ -13,6 +13,8 @@ include('../../php/session/validateSession.php');
     <link href="../../css/styles.css" rel="stylesheet">
   </head>
   <body>
+
+
     <!-- Barra de navegacion -->
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
       <div class="container-fluid">
@@ -51,24 +53,9 @@ include('../../php/session/validateSession.php');
 
 
     <!-- Foros -->
-    <section>
-      <div class="d-flex flex-wrap justify-content-center text-center">
-        <div class="card m-3" style="width: 18rem;">
-          <img src="../multimedia/river.png" class="card-img card-img-top" alt="...">
-          <div class="card-body">
-            <h5 class="card-title">Foro Primera</h5>
-            <p class="card-text">Descripcion de foro<p>
-            <a href="foro1.html" target="_blank" rel="noopener noreferrer" class="btn-card btn btn-primary">Entrar</a>
-          </div>
-        </div>
-        <div class="card m-3" style="width: 18rem;">
-          <img src="../multimedia/realmadrid.png" class="card-img card-img-top" alt="...">
-          <div class="card-body">
-            <h5 class="card-title">Foro Europa</h5>
-            <p class="card-text">Descripcion de foro<p>
-            <a href="foro2.html" target="_blank" rel="noopener noreferrer" class="btn-card btn btn-primary">Entrar</a>
-          </div>
-        </div>
+    <section id="foros_section">
+      <div class="d-flex flex-wrap justify-content-center text-center" id="foros_div">
+		
       </div>
       
       
@@ -76,5 +63,7 @@ include('../../php/session/validateSession.php');
     </section>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <script src="../../js/jquery-3.7.1.min.js"></script>
+    <script src="../../js/foro/getForo.js"></script>
   </body>
 </html>
