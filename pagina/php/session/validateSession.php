@@ -3,7 +3,7 @@
 session_start();
 
 if (!isset($_SESSION['idSession'])) {
-    header('location: ../user/login.php');
+    header('location: ../../design/user/login.php');
 }
 
 ?>
