@@ -29,7 +29,7 @@ mysqli_select_db($conn, $db_name);
 
 # If recives an ID of a foro
 if ($id_foro === null) {
-    $stmt = $conn->prepare("SELECT F.id_foro, F.photo, F.name, F.description, F.date_creation, L.description
+    $stmt = $conn->prepare("SELECT F.id_foro, F.photo, F.name, F.description, F.date_creation, L.description as league_description
                     FROM foro F
                     INNER JOIN league L
                     ON F.id_league = L.id_league
@@ -50,7 +50,7 @@ if ($id_foro === null) {
     empty($result->data) ? error_request($result, "There is no foros actives in database") : 0;
 
 } else {
-    $stmt = $conn->prepare("SELECT F.id_foro, F.photo, F.name, F.description, F.date_creation, L.description
+    $stmt = $conn->prepare("SELECT F.id_foro, F.photo, F.name, F.description, F.date_creation, L.description as league_description
                     FROM foro F
                     INNER JOIN league L
                     ON F.id_league = L.id_league
