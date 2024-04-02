@@ -1,7 +1,7 @@
 /* Estilos generales */
 
 body {
-    background-color: #0b090a;
+    background-color: #00ff15;
     /* Buscar una fuente */
     /* font-family: "Source Code Pro", monospace; */
   }
@@ -80,7 +80,7 @@ body {
   
   /* Proyectos */
   .card {
-    background-color: #161a1d;
+    background-color: #004b0a;
     color: white;
     transition: transfrom 0.3s ease-in-out;
   }
