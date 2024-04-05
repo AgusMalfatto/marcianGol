@@ -141,7 +141,7 @@ $(document).ready(function () {
 		if (foros != null) {
 			var objForos = JSON.parse(foros);
 
-			var trendCard = createTrendForoCard(objForos.data[0].name, objForos.data[0].description, objForos.data[0].photo, objForos.data[0].date_creation);
+			var trendCard = createTrendForoCard(objForos.data[0].id_foro, objForos.data[0].name, objForos.data[0].description, objForos.data[0].photo, objForos.data[0].date_creation);
 			$("#trend-div").append(trendCard);
 		} else {
 			console.log("Nop");
