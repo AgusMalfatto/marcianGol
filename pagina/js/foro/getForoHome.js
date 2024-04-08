@@ -1,3 +1,4 @@
+// Ajax to get all the foros from database
 function getForo() {
 	return new Promise(function (resolve, reject) {
 		var settings = {
@@ -37,12 +38,12 @@ function createForoCard(id_foro, nombre, descripcion, imagenUrl) {
 	description.textContent = descripcion;
 
 	var enlace = document.createElement('a');
-	enlace.href = "showForo.php";
+	enlace.href = "showForo.php?id=" + id_foro;
 	enlace.target = '_blank';
 	enlace.rel = 'noopener noreferrer';
-	enlace.classList.add('btn-card', 'btn', 'btn-primary');
+	// 'btn-foro-id' is used to manage the foros id between the htmls.
+	enlace.classList.add('btn-card', 'btn', 'btn-primary', 'btn-foro-id');
 	enlace.textContent = 'Entrar';
-	enlace.id = id_foro;
 
 	// joining elements
 	cardBodyDiv.appendChild(title);
@@ -92,9 +93,9 @@ function createTrendForoCard(id_foro, nombre, descripcion, imagenUrl, date_creat
 	enlace.href = "showForo.php";
 	enlace.target = '_blank';
 	enlace.rel = 'noopener noreferrer';
-	enlace.classList.add('btn-card', 'btn', 'btn-primary');
+	// 'btn-foro-id' is used to manage the foros id between the htmls.
+	enlace.classList.add('btn-card', 'btn', 'btn-primary', 'btn-foro-id');
 	enlace.textContent = 'Entrar';
-	enlace.id = id_foro;
 
 	// Joining elements
 	cardBodyDiv.appendChild(title);
@@ -123,6 +124,7 @@ function fillForos(foros) {
 }
 
 $(document).ready(function () {
+	// Filling all the foros
 	getForo().then(function (foros) {
 		if (foros != null) {
 			var objForos = JSON.parse(foros);
@@ -136,7 +138,7 @@ $(document).ready(function () {
 		console.error("Error al obtener foros:", error);
 	});
 
-	// Fill trend foro
+	// Filling trend foro
 	getForo().then(function (foros) {
 		if (foros != null) {
 			var objForos = JSON.parse(foros);
