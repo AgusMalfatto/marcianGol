@@ -17,6 +17,9 @@ include ("../../php/session/validateSession.php");
     <div id="div_foro_description">
         <!-- Description of the foro -->
     </div>
+    <div id="div_foro_league">
+        <!-- League of the foro -->
+    </div>
 </div>
 
 <div id="filter-zone" class="btn">Filtrar y Ordenar</div>

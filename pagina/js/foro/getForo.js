@@ -1,3 +1,4 @@
+// Ajax to get the foro with idButton from database
 function getForo(idButton) {
 	return new Promise(function (resolve, reject) {
 		var settings = {
@@ -15,16 +16,26 @@ function getForo(idButton) {
 	});
 }
 
+// Filling the template with the foro data
 function fillDataForo(name, description, image_url, league) {
-    var divTitle = $('<h2 class="title_foro">' + name + '</h2>');
-    
-    console.log(divTitle);
-    console.log(name);
-    divTitle.appendTo('#div_foro_title');                   
+    // Creating the elements
+    var img = document.createElement('img');
+	img.src = image_url;
+	img.classList.add('card-img', 'card-img-top');
+	img.alt = '...';
+
+    var title = $('<h2 class="title_foro">' + name + '</h2>');
+    var text_description = $('<h4 class="card-text">' + description + '</h4>');
+    var text_league = $('<h5 class="card-text">' + league + '</h5>');
+
+    // Append the elements to DOM
+    document.getElementById("div_img_content").appendChild(img);
+    title.appendTo('#div_foro_title');
+    text_description.appendTo('#div_foro_description');
+    text_league.appendTo('#div_foro_league');
 }
 
-// Función para crear un nuevo comentario
-function crearNuevoComentario(autor, contenido) {
+function createCommentCard(autor, contenido) {
     var nuevoComentario = $('<div class="comment">' +
                             '<div class="author">' + autor + '</div>' +
                             '<div class="content">' + contenido + '</div>' +
@@ -33,26 +44,24 @@ function crearNuevoComentario(autor, contenido) {
 }
 
 $(document).ready(function () {
-
-    // Agregar event listener al contenedor para escuchar clicks en botones
-    $('#foros_div').on('click', 'a', function(event) {
-
-        var idButton = $(this).attr('id');
         
-        getForo(idButton).then(function (foros) {
-            if (foros != null) {
-                var objForo = JSON.parse(foros);
-                console.log(objForo);
-                console.log(objForo.data[0].name);
-                fillDataForo(objForo.data[0].name, objForo.data[0].description, objForo.data[0].image_url, objForo.data[0].league);
-                //fillForo(objForo);
-    
-            } else {
-                console.log("Nop");
-            }
-        }).catch(function (error) {
-            console.error("Error al obtener foros:", error);
-        }); 
-    });
-  
+    // Get the params from the URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const idButton = urlParams.get('id');
+    console.log(idButton);
+
+    // Filling the information
+    getForo(idButton).then(function (foros) {
+        if (foros != null) {
+            var objForo = JSON.parse(foros);
+            console.log(objForo);
+            console.log(objForo.data[0].name);
+            fillDataForo(objForo.data[0].name, objForo.data[0].description, objForo.data[0].photo, objForo.data[0].league_description);
+
+        } else {
+            console.log("Nop");
+        }
+    }).catch(function (error) {
+        console.error("Error al obtener foros:", error);
+    }); 
 });
