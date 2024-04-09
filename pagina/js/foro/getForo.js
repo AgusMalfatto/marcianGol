@@ -1,11 +1,30 @@
 // Ajax to get the foro with idButton from database
-function getForo(idButton) {
+function getForo(idForo) {
 	return new Promise(function (resolve, reject) {
 		var settings = {
 			"url": "../../php/foro/getForo.php",
 			"method": "GET",
 			"timeout": 0,
-            "data": {id_foro: idButton}
+            "data": {id_foro: idForo}
+		};
+
+		$.ajax(settings).done(function (response) {
+			resolve(response);
+		}).fail(function (jqXHR, textStatus, errorThrown) {
+			reject(errorThrown);
+		});
+	});
+}
+
+// Ajax to get all the active comments of the foro (idForo)
+function getComment(idForo) {
+    console.log("getComment: " + idForo);
+    return new Promise(function (resolve, reject) {
+		var settings = {
+			"url": "../../php/comment/getComment.php",
+			"method": "GET",
+			"timeout": 0,
+            "data": {id_foro: idForo}
 		};
 
 		$.ajax(settings).done(function (response) {
@@ -48,9 +67,8 @@ $(document).ready(function () {
     // Get the params from the URL
     const urlParams = new URLSearchParams(window.location.search);
     const idButton = urlParams.get('id');
-    console.log(idButton);
 
-    // Filling the information
+    // Filling the foro information
     getForo(idButton).then(function (foros) {
         if (foros != null) {
             var objForo = JSON.parse(foros);
@@ -64,4 +82,19 @@ $(document).ready(function () {
     }).catch(function (error) {
         console.error("Error al obtener foros:", error);
     }); 
+
+
+    // Filling the comment section
+    getComment(idButton).then(function (comments) {
+        if (comments != null) {
+            var objComments = JSON.parse(comments);
+
+            console.log(objComments);
+        } else {
+            console.log("Nop");
+        }
+    }).catch(function (error) {
+        console.error("Error al obtener foros:", error);
+    }); 
+
 });
