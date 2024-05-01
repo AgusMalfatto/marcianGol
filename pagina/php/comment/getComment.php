@@ -28,11 +28,23 @@ $db_name = "marciangol";
 mysqli_select_db($conn, $db_name);
 !is_foro_active($conn, $id_foro) ? error_request($result, "The Foro is not active or it doesn't exists") : 0;
 
-$stmt = $conn->prepare("SELECT C.id_comment, C.description, C.date_comment, C.likes, C.dislikes, U.name, U.last_name
+$stmt = $conn->prepare("SELECT C.id_comment, C.description, C.date_comment, U.name, U.last_name, 
+                        SUM(
+                            CASE 
+                                WHEN L.is_like = 1 THEN 1
+                                WHEN L.is_like = 0 THEN -1
+                                ELSE 0
+                            END
+                        ) as Likes
+
                         FROM comment C 
                         INNER JOIN user U
-                        ON C.id_user = U.id_user
-                        WHERE C.active = 1 AND C.id_foro = ?");
+                            ON C.id_user = U.id_user
+                        LEFT JOIN likes L 
+                            ON C.id_comment = L.id_comment
+                        WHERE C.active = 1 AND C.id_foro = ?
+                        GROUP BY C.id_comment, C.description, C.date_comment, U.name, U.last_name
+                        ORDER BY C.date_comment;");
 
 !$stmt ? error_stmt($result, "Error preparing the query: " . $conn->error, $stmt, $conn) : 0;
 

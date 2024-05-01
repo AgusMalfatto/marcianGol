@@ -28,6 +28,7 @@ function getComment(idForo) {
 		};
 
 		$.ajax(settings).done(function (response) {
+            console.log(response);
 			resolve(response);
 		}).fail(function (jqXHR, textStatus, errorThrown) {
 			reject(errorThrown);
