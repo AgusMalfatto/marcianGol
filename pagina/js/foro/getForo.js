@@ -18,7 +18,6 @@ function getForo(idForo) {
 
 // Ajax to get all the active comments of the foro (idForo)
 function getComment(idForo) {
-    console.log("getComment: " + idForo);
     return new Promise(function (resolve, reject) {
 		var settings = {
 			"url": "../../php/comment/getComment.php",
@@ -28,7 +27,12 @@ function getComment(idForo) {
 		};
 
 		$.ajax(settings).done(function (response) {
-            console.log(response);
+            var objComment = JSON.parse(response);
+
+            /* Creating cards for each comment */
+            objComment.data.forEach(comment => {
+                createCommentCard(comment);
+            })
 			resolve(response);
 		}).fail(function (jqXHR, textStatus, errorThrown) {
 			reject(errorThrown);
@@ -55,12 +59,48 @@ function fillDataForo(name, description, image_url, league) {
     text_league.appendTo('#div_foro_league');
 }
 
-function createCommentCard(autor, contenido) {
-    var nuevoComentario = $('<div class="comment">' +
-                            '<div class="author">' + autor + '</div>' +
-                            '<div class="content">' + contenido + '</div>' +
-                            '</div>');
-    return nuevoComentario;
+// Create comment card and add to the DOM
+function createCommentCard(comment) {
+
+    /* Creating contents cards */
+    var commentCard = document.createElement('div');
+    commentCard.classList.add('card', 'm-3', 'content');
+
+    var userNameCard = document.createElement('div');
+    userNameCard.classList.add('card', 'm-3', 'author');
+
+    var contentCard = document.createElement('div');
+    contentCard.classList.add('card', 'm-3');
+
+    var likesCard = document.createElement('div');
+    likesCard.classList.add('card', 'm-3');
+
+    /* Creating info tags */
+    var nameTag = document.createElement('h5');
+    nameTag.classList.add('card-title');
+    nameTag.textContent = comment.name + ", " + comment.last_name + " | " + comment.date_comment;
+    
+    var contentTag = document.createElement('p');
+    contentTag.classList.add('card-text');
+    contentTag.textContent = comment.description;
+
+    var likesTag = document.createElement('p');
+    likesTag.classList.add('card-text');
+    likesTag.textContent = comment.Likes;
+    var likesIcon = document.createElement('i');
+    likesIcon.classList.add('las', 'la-thumbs-up');
+
+    /* Append */
+    userNameCard.appendChild(nameTag);
+    contentCard.appendChild(contentTag);
+    likesCard.appendChild(likesIcon);
+    likesCard.appendChild(likesTag);
+
+    commentCard.appendChild(userNameCard);
+    commentCard.appendChild(contentCard);
+    commentCard.appendChild(likesCard);
+
+    document.getElementById('content-comment').appendChild(commentCard);
 }
 
 $(document).ready(function () {
