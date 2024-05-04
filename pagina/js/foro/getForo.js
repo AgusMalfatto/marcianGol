@@ -27,12 +27,6 @@ function getComment(idForo) {
 		};
 
 		$.ajax(settings).done(function (response) {
-            var objComment = JSON.parse(response);
-
-            /* Creating cards for each comment */
-            objComment.data.forEach(comment => {
-                createCommentCard(comment);
-            })
 			resolve(response);
 		}).fail(function (jqXHR, textStatus, errorThrown) {
 			reject(errorThrown);
@@ -113,8 +107,6 @@ $(document).ready(function () {
     getForo(idButton).then(function (foros) {
         if (foros != null) {
             var objForo = JSON.parse(foros);
-            console.log(objForo);
-            console.log(objForo.data[0].name);
             fillDataForo(objForo.data[0].name, objForo.data[0].description, objForo.data[0].photo, objForo.data[0].league_description);
 
         } else {
@@ -128,11 +120,14 @@ $(document).ready(function () {
     // Filling the comment section
     getComment(idButton).then(function (comments) {
         if (comments != null) {
-            var objComments = JSON.parse(comments);
+            var objComment = JSON.parse(comments);
 
-            console.log(objComments);
+            /* Creating cards for each comment */
+            objComment.data.forEach(comment => {
+                createCommentCard(comment);
+            })
         } else {
-            console.log("Nop");
+            console.log("Error");
         }
     }).catch(function (error) {
         console.error("Error al obtener foros:", error);
