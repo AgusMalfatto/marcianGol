@@ -35,7 +35,7 @@ function getComment(idForo) {
 }
 
 // Filling the template with the foro data
-function fillDataForo(name, description, image_url, league) {
+function fillDataForo(name, description, image_url, league, id_foro) {
     // Creating the elements
     var img = document.createElement('img');
 	img.src = image_url;
@@ -51,6 +51,7 @@ function fillDataForo(name, description, image_url, league) {
     title.appendTo('#div_foro_title');
     text_description.appendTo('#div_foro_description');
     text_league.appendTo('#div_foro_league');
+    document.getElementById('id_foro').textContent = id_foro;
 }
 
 // Create comment card and add to the DOM
@@ -107,7 +108,7 @@ $(document).ready(function () {
     getForo(idButton).then(function (foros) {
         if (foros != null) {
             var objForo = JSON.parse(foros);
-            fillDataForo(objForo.data[0].name, objForo.data[0].description, objForo.data[0].photo, objForo.data[0].league_description);
+            fillDataForo(objForo.data[0].name, objForo.data[0].description, objForo.data[0].photo, objForo.data[0].league_description, objForo.data[0].id_foro);
 
         } else {
             console.log("Nop");
