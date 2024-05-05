@@ -42,7 +42,7 @@ function fillDataForo(name, description, image_url, league, id_foro) {
 	img.classList.add('card-img', 'card-img-top');
 	img.alt = '...';
 
-    var title = $('<h2 class="title_foro">' + name + '</h2>');
+    var title = $('<h2 class="title_foro" id="foro_name">' + name + '</h2>');
     var text_description = $('<h4 class="card-text">' + description + '</h4>');
     var text_league = $('<h5 class="card-text">' + league + '</h5>');
 
