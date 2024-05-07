@@ -47,11 +47,47 @@ include ("../../php/session/validateSession.php");
     <?php
         if($_SESSION['admin']) {
             echo "<button id='deactivate_foro' type='button' class='btn btn-primary' data-toggle='modal' data-target='#deactivateModal'>Desactivar Foro</button>";
-            echo "<button id='modify_foro' type='button' class='btn btn-primary'>Modificar Foro</button>";
+            echo "<button id='modify_foro' type='button' class='btn btn-primary' data-toggle='modal' data-target='#modifyForoModal'>Modificar Foro</button>";
         }
     ?>
 </div>
 
+<!-- Modal to modify foro -->
+<div class="modal fade" id="modifyForoModal" tabindex="-1" role="dialog" aria-labelledby="modificarForoModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modificarForoModalLabel">Modificar Foro</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <!-- Formulario de modificación -->
+                <form id="modificarForoForm">
+                    <div class="form-group">
+                        <label for="nombreForo">Nombre del Foro</label>
+                        <input type="text" class="form-control" id="anmeModifyForo" placeholder="">
+                    </div>
+                    <div class="form-group">
+                        <label for="descripcionForo">Descripción del Foro</label>
+                        <textarea class="form-control" id="descriptioMofidyForo" rows="3"><!-- Foro description --></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="fotoForo">Foto del Foro</label>
+                        <input type="file" class="form-control-file" id="imageModifyForo">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" id="desactivarForoBtn" data-toggle='modal' data-target='#deactivateModal'>Desactivar Foro</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary" id="confirmarModificacionBtn">Confirmar</button>
+            </div>
+        </div>
+    </div>
+</div>
+ 
 <!-- Modal deactivate foro Confirmation-->
 <div class="modal fade" id="deactivateModal" tabindex="-1" role="dialog" aria-labelledby="confirmModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
@@ -94,6 +130,8 @@ include ("../../php/session/validateSession.php");
         </div>
     </div>
 </div>
+
+
 
 <div id="filter-zone" class="btn">Filtrar y Ordenar</div>
 
