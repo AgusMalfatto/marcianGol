@@ -96,6 +96,8 @@ function validateName(nameForo) {
         return false;
     }
 
+    $("#nameCreateForo").removeClass('border border-danger border-2');
+
     return true;
 }
 
@@ -118,6 +120,8 @@ function validateDescription(descriptionForo) {
 
         return false;
     }
+
+    $("#descriptionCreateForo").removeClass('border border-danger border-2');
 
     return true;
 }
