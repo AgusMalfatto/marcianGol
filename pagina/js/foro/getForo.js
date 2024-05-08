@@ -1,3 +1,59 @@
+// Ajax to complete the team select (foro image)
+function completeImageSelect() {
+    $.ajax({
+        url: "../../php/team/getNameTeam.php",
+        type: "GET",
+        dataType: "json",
+        success: function(response) {
+            fillImageSelect(response);
+        },
+        error: function(xhr, status, error) {
+            console.error("Error en la solicitud:", error);
+        }
+    });
+}
+
+// Function to complete the team select
+function fillImageSelect(response) {
+    var selectElement = $("#imageModifyForo");
+
+    // Itera sobre los datos y crea opciones dinámicamente
+    $.each(response.data, function(index, team) {
+        var optionElement = $("<option></option>")
+            .attr("value", team.name)
+            .text(team.name);
+        selectElement.append(optionElement);
+    });
+}
+
+// Ajax to complete the team select (foro image)
+function completeLeagueSelect() {
+    $.ajax({
+        url: "../../php/league/getNameLeague.php",
+        type: "GET",
+        dataType: "json",
+        success: function(response) {
+            fillLeagueSelect(response);
+        },
+        error: function(xhr, status, error) {
+            console.error("Error en la solicitud:", error);
+        }
+    });
+}
+
+// Function to complete the team select
+function fillLeagueSelect(response) {
+    var selectElement = $("#leagueModifyForo");
+
+    // Itera sobre los datos y crea opciones dinámicamente
+    $.each(response.data, function(index, team) {
+        var optionElement = $("<option></option>")
+            .attr("value", team.description)
+            .text(team.description);
+        selectElement.append(optionElement);
+    });
+}
+
 // Ajax to get the foro with idButton from database
 function getForo(idForo) {
 	return new Promise(function (resolve, reject) {
@@ -35,23 +91,14 @@ function getComment(idForo) {
 }
 
 // Filling the template with the foro data
-function fillDataForo(name, description, image_url, league, id_foro) {
-    // Creating the elements
-    var img = document.createElement('img');
-	img.src = image_url;
-	img.classList.add('card-img', 'card-img-top');
-	img.alt = '...';
-
-    var title = $('<h2 class="title_foro" id="foro_name">' + name + '</h2>');
-    var text_description = $('<h4 class="card-text">' + description + '</h4>');
-    var text_league = $('<h5 class="card-text">' + league + '</h5>');
+function fillDataForo(nameForo, description, image_url, league, id_foro) {
 
     // Append the elements to DOM
-    document.getElementById("div_img_content").appendChild(img);
-    title.appendTo('#div_foro_title');
-    text_description.appendTo('#div_foro_description');
-    text_league.appendTo('#div_foro_league');
-    document.getElementById('id_foro').textContent = id_foro;
+    $("#foro_image").attr("src", image_url);
+    $("#foro_name").text(nameForo);
+    $("#foro_description").text(description);
+    $("#foro_league").text(league);
+    $("#id_foro").text(id_foro);
 }
 
 // Create comment card and add to the DOM
@@ -98,7 +145,12 @@ function createCommentCard(comment) {
     document.getElementById('content-comment').appendChild(commentCard);
 }
 
+
 $(document).ready(function () {
+    completeImageSelect();
+    completeLeagueSelect();
+
+    $("#idModifyForo").prop('disabled', true);
         
     // Get the params from the URL
     const urlParams = new URLSearchParams(window.location.search);

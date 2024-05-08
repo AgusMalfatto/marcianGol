@@ -31,16 +31,24 @@ include ("../../php/session/validateSession.php");
 
 <div class="foro">   
     <div id="div_foro_title">
-        <!-- Title of the foro -->
+        <h2 class="title_foro" id="foro_name">
+            <!-- Title of the foro -->
+        </h2>
+        
     </div>
     <div id="div_foro_description">
-        <!-- Description of the foro -->
+        <h4 class="card-text" id="foro_description">
+            <!-- Description of the foro -->
+        </h4>    
     </div>
     <div id="div_foro_league">
-        <!-- League of the foro -->
+        <h5 class="card-text" id="foro_league">
+            <!-- League of the foro -->
+        </h5>
     </div>
     <div id="div_img_content">
         <!-- Image of the foro -->
+        <img src="" alt="..." class="card-img card-img-top" id="foro_image">    
     </div>
 
     <!-- Deactivate and modify foro buttons (Just for admin users) -->
@@ -65,27 +73,60 @@ include ("../../php/session/validateSession.php");
             <div class="modal-body">
                 <!-- Formulario de modificación -->
                 <form id="modificarForoForm">
-                    <div class="form-group">
-                        <label for="nombreForo">Nombre del Foro</label>
-                        <input type="text" class="form-control" id="anmeModifyForo" placeholder="">
+                    <div class="form-group mt-3">
+                        <label for="idForo">ID del Foro</label>
+                        <input type="text" class="form-control" id="idModifyForo" placeholder="">
                     </div>
-                    <div class="form-group">
-                        <label for="descripcionForo">Descripción del Foro</label>
-                        <textarea class="form-control" id="descriptioMofidyForo" rows="3"><!-- Foro description --></textarea>
+                    <div class="form-group mt-3">
+                        <label for="nameModifyForo">Nombre del Foro</label>
+                        <input type="text" class="form-control" id="nameModifyForo" placeholder="">
                     </div>
-                    <div class="form-group">
-                        <label for="fotoForo">Foto del Foro</label>
-                        <input type="file" class="form-control-file" id="imageModifyForo">
+                    <div class="form-group mt-3">
+                        <label for="descriptionModifyForo">Descripción del Foro</label>
+                        <textarea class="form-control" id="descriptionMofidyForo" rows="3"></textarea>
+                    </div>
+                    <div class="form-group mt-3">
+                        <label for="iamgeModifyForo">Principal del Foro</label>
+                        <select class="form-control-file" id="imageModifyForo">
+                        
+                        </select>
+                    </div>
+                    <div class="form-group mt-3">
+                        <label for="leagueModifyForo">Liga del Foro</label>
+                        <select class="form-control-file" id="leagueModifyForo">
+
+                        </select>
                     </div>
                 </form>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" id="desactivarForoBtn" data-toggle='modal' data-target='#deactivateModal'>Desactivar Foro</button>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                <button type="button" class="btn btn-primary" id="confirmarModificacionBtn">Confirmar</button>
+                <button type="button" class="btn btn-primary" id="modifyBtn" class='btn btn-primary'>Confirmar</button>
             </div>
         </div>
     </div>
+</div>
+
+<!-- Modal modify foro Confirmation-->
+<div class="modal fade" id="modifyModal" tabindex="-1" role="dialog" aria-labelledby="confirmModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="confirmModalLabel">Modificar Foro</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        ¿Estás seguro de que deseas modificar el foro?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-primary" id='confirmModifyBtn'>Confirmar</button>
+      </div>
+    </div>
+  </div>
 </div>
  
 <!-- Modal deactivate foro Confirmation-->
@@ -114,7 +155,9 @@ include ("../../php/session/validateSession.php");
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="avisoModalLabel">Foro Desactivado</h5>
+                <h5 class="modal-title" id="avisoModalLabel">
+                    <!-- Title of the modal -->
+                </h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
                     <span aria-hidden="true">&times;</span>
                 </button>
