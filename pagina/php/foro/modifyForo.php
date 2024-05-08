@@ -75,6 +75,8 @@ if (!$stmt) {
     error_stmt($result, "Error preparing the query: " . $conn->error, $stmt, $conn);
 }
 
+$photo = "../../multimedia/" . $photo . ".png";
+
 $stmt->bind_param("sssii", $photo, $name, $description, $result_league->id_league, $id_foro);
 
 if (!$stmt->execute()) {
