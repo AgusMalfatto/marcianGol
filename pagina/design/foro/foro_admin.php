@@ -6,18 +6,15 @@ include('../../php/session/validateAdmin.php');
 <!-- ARCHIVO CREADO COMO BASE PARA EL DISENO -->
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Bootstrap demo</title>
-
-    <link href="../../css/styles.css" rel="stylesheet">
-  </head>
+  
+  <?php
+      include 'templates/head.php'; 
+  ?>
   <body>
 
 
     <?php
-      include 'templateMenu.php'; 
+      include 'templates/templateMenu.php'; 
     ?>
 
     <h1>Administración de Foros</h1>
@@ -46,8 +43,8 @@ include('../../php/session/validateAdmin.php');
     </div>
 
     <?php
-      include 'template_modifyForo.php'; 
-      include 'modal_deactivate.php';
+      include 'modals/modal_modifyForo.php'; 
+      include 'modals/modal_deactivate.php';
     ?>
 
     <!-- SCRIPTS -->

@@ -2,23 +2,19 @@
 
 include ("../../php/session/validateSession.php");
 include ("../../php/session/validateAdmin.php");
-include ("templateMenu.php");
 
 ?>
 <!DOCTYPE html>
 <html lang="en">  
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Bootstrap demo</title>
-        <link href="../../css/styles.css" rel="stylesheet">
-
-        <!-- Icons8 -->
-        <link rel= "stylesheet" href= "https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css" >
-  </head>
+    
+    <?php
+        include 'templates/head.php'; 
+    ?>
 <body>
     
-</html>
+    <?php
+        include ("templates/templateMenu.php");
+    ?>
 
 <h1>CREATE FORO</h1>
 
@@ -32,7 +28,7 @@ include ("templateMenu.php");
         </div>
         <div class="form-group">
             <label for="descriptionCreateForo">Descripción del Foro</label>
-            <textarea class="form-control" id="descriptionCreateForo" rows="3"></textarea>
+            <textarea class="form-control" id="descriptionCreateForo" rows="3" placeholder="Descripción del Foro"></textarea>
         </div>
         <div class="form-group">
             <label for="imageCreateForo">Principal del Foro</label>
@@ -50,7 +46,7 @@ include ("templateMenu.php");
 </div>
 
 <?php
-    include 'modal_create.php'; 
+    include 'modals/modal_create.php'; 
 ?>
 
 <!-- JavaScript de Bootstrap (jQuery es requerido) -->
@@ -62,3 +58,4 @@ include ("templateMenu.php");
 
 
 </body>
+</html>

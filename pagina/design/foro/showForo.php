@@ -4,22 +4,13 @@ include ("../../php/session/validateSession.php");
 
 ?>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Bootstrap demo</title>
-
-    <!-- Bootstrap -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <link href="../../css/styles.css" rel="stylesheet">
-
-    <!-- Icons8 -->
-    <link rel= "stylesheet" href= "https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css" >
-  </head>
+<?php
+    include 'templates/head.php'; 
+?>
 <body>   
     
 <?php
-    include 'templateMenu.php'; 
+    include 'templates/templateMenu.php'; 
 ?>
 
 <h1>Show FORO</h1>
@@ -60,121 +51,12 @@ include ("../../php/session/validateSession.php");
     ?>
 </div>
 
-<!-- Modal to modify foro -->
-<div class="modal fade" id="modifyForoModal" tabindex="-1" role="dialog" aria-labelledby="modificarForoModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="modificarForoModalLabel">Modificar Foro</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <!-- Formulario de modificación -->
-                <form id="modificarForoForm">
-                    <div class="form-group mt-3">
-                        <label for="idForo">ID del Foro</label>
-                        <input type="text" class="form-control" id="idModifyForo" placeholder="">
-                    </div>
-                    <div class="form-group mt-3">
-                        <label for="nameModifyForo">Nombre del Foro</label>
-                        <input type="text" class="form-control" id="nameModifyForo" placeholder="">
-                    </div>
-                    <div class="form-group mt-3">
-                        <label for="descriptionModifyForo">Descripción del Foro</label>
-                        <textarea class="form-control" id="descriptionMofidyForo" rows="3"></textarea>
-                    </div>
-                    <div class="form-group mt-3">
-                        <label for="iamgeModifyForo">Principal del Foro</label>
-                        <select class="form-control-file" id="imageModifyForo">
-                        
-                        </select>
-                    </div>
-                    <div class="form-group mt-3">
-                        <label for="leagueModifyForo">Liga del Foro</label>
-                        <select class="form-control-file" id="leagueModifyForo">
-
-                        </select>
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-danger" id="desactivarForoBtn" data-toggle='modal' data-target='#deactivateModal'>Desactivar Foro</button>
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                <button type="button" class="btn btn-primary" id="modifyBtn" class='btn btn-primary'>Confirmar</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Modal modify foro Confirmation-->
-<div class="modal fade" id="modifyModal" tabindex="-1" role="dialog" aria-labelledby="confirmModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="confirmModalLabel">Modificar Foro</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        ¿Estás seguro de que deseas modificar el foro?
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-        <button type="button" class="btn btn-primary" id='confirmModifyBtn'>Confirmar</button>
-      </div>
-    </div>
-  </div>
-</div>
- 
-<!-- Modal deactivate foro Confirmation-->
-<div class="modal fade" id="deactivateModal" tabindex="-1" role="dialog" aria-labelledby="confirmModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="confirmModalLabel">Desactivar Foro</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        ¿Estás seguro de que deseas desactivar el foro? No se podrá utilizar ni reactivar una vez desactivado.  
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-        <button type="button" class="btn btn-primary" id='confirmDeactivateBtn'>Confirmar</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- Modal after deactivate foro -->
-<div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="avisoModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="avisoModalLabel">
-                    <!-- Title of the modal -->
-                </h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <p id="avisoTexto">
-                    <!-- Text to confirm deactivation -->
-                </p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-            </div>
-        </div>
-    </div>
-</div>
 
 
+<?php
+    include 'modals/modal_modifyForo.php'; 
+    include 'modals/modal_deactivate.php';
+?>
 
 <div id="filter-zone" class="btn">Filtrar y Ordenar</div>
 
