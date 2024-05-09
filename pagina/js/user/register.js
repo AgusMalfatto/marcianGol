@@ -111,8 +111,7 @@ $(document).ready(function () {
                 success: function (respuesta) {
                     var data = JSON.parse(respuesta);
                     if (data.success == true) {
-                        alert("aka estoi, se registro bien la concha de tu madre 8=D");
-
+                        
                         window.location.href = "../../design/user/login.php";
                     } else {
                         $("#errorMessage").empty();

@@ -45,22 +45,22 @@ include ("../../php/session/validateSession.php");
     <!-- Deactivate and modify foro buttons (Just for admin users) -->
     <?php
         if($_SESSION['admin']) {
-            echo "<button id='deactivate_foro' type='button' class='btn btn-primary' data-toggle='modal' data-target='#deactivateModal'>Desactivar Foro</button>";
+            echo "<button id='deactivate_foro' type='button' class='btn btn-primary' data-toggle='modal' data-target='#confirmQuestion'>Desactivar Foro</button>";
             echo "<button id='modify_foro' type='button' class='btn btn-primary' data-toggle='modal' data-target='#modifyForoModal'>Modificar Foro</button>";
         }
     ?>
 </div>
 
-
-
 <?php
     include 'modals/modal_modifyForo.php'; 
-    include 'modals/modal_deactivate.php';
+    include 'modals/modal_alerts.php';
 ?>
 
 <div id="filter-zone" class="btn">Filtrar y Ordenar</div>
 
 <h3>Comment Section</h3>
+
+<button id='add_comment_btn' type='button' class='btn btn-primary'>Añadir Comentario</button>
 
 <section id="comment-section">
     <div id="content-comment">

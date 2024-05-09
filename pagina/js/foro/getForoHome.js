@@ -1,5 +1,5 @@
 // Ajax to get all the foros from database
-function getForo(active=0) {
+function getForo(active = 0) {
 	return new Promise(function (resolve, reject) {
 		var settings;
 		if (active === 0) {
@@ -18,7 +18,7 @@ function getForo(active=0) {
 				}
 			};
 		}
-		
+
 
 		$.ajax(settings).done(function (response) {
 			resolve(response);
@@ -28,8 +28,11 @@ function getForo(active=0) {
 	});
 }
 
-function createForoCard(id_foro, nombre, descripcion, imagenUrl) {
+function createForoCard(id_foro, nombre, descripcion, imagenUrl, date_creation) {
 	// Create tags
+	var headDiv = document.createElement('div');
+
+
 	var cardDiv = document.createElement('div');
 	cardDiv.classList.add('card', 'm-3');
 	cardDiv.style.width = '18rem';
@@ -52,13 +55,33 @@ function createForoCard(id_foro, nombre, descripcion, imagenUrl) {
 
 	var enlace = document.createElement('a');
 	enlace.href = "showForo.php?id=" + id_foro;
-	enlace.target = '_blank';
 	enlace.rel = 'noopener noreferrer';
 	// 'btn-foro-id' is used to manage the foros id between the htmls.
 	enlace.classList.add('btn-card', 'btn', 'btn-primary', 'btn-foro-id');
 	enlace.textContent = 'Entrar';
 
+
+	// Calcular la fecha actual
+	var fecha_actual = new Date();
+	// Convertir la fecha de creación del foro a un objeto Date
+	var fecha_creacion_foro = new Date(date_creation);
+	// Calcular la diferencia en milisegundos
+	var diferencia_tiempo = fecha_actual.getTime() - fecha_creacion_foro.getTime();
+	// Convertir la diferencia en días
+	var diferencia_dias = diferencia_tiempo / (1000 * 3600 * 24);
+
+
+	// Si el foro se creó hoy, agrega el ícono "new"
+	if (diferencia_dias <= 1) {
+		var newIcon = document.createElement('span');
+		newIcon.classList.add('badge', 'bg-success', 'rounded-pill');
+		newIcon.textContent = 'NEW FORO';
+		headDiv.appendChild(newIcon);
+	}
+
+
 	// joining elements
+	cardDiv.appendChild(headDiv);
 	cardBodyDiv.appendChild(title);
 	cardBodyDiv.appendChild(description);
 	cardBodyDiv.appendChild(enlace);
@@ -129,18 +152,19 @@ function fillForos(foros) {
 	var sectionForo = $("#foros_div");
 
 	foros.data.forEach(foro => {
-		var newCard = createForoCard(foro.id_foro, foro.name, foro.description, foro.photo);
+		var newCard = createForoCard(foro.id_foro, foro.name, foro.description, foro.photo, foro.date_creation);
 		sectionForo.append(newCard);
 	});
 
 }
+
 
 $(document).ready(function () {
 	// Filling all the foros
 	getForo().then(function (foros) {
 		if (foros != null) {
 			var objForos = JSON.parse(foros);
-			
+
 			fillForos(objForos);
 
 		} else {

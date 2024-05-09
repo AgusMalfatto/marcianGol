@@ -20,21 +20,40 @@ function fillModifyForm() {
 
 
 $(document).ready(function () {
+
+    // '0' if the use is going to deactivate the foro, '1' if the user is going to modify.
+    var flag;
     
-    var deactivateBtn = document.getElementById("confirmDeactivateBtn");
+    var deactivateBtn = $("#deactivate_foro");
+    var deactivateConfirmBtn = document.getElementById("confirmQuestionBtn");
+
+    // Open and fill modal
     var modify_foro = $("#modify_foro");
-    var modify_btn = $("#modifyBtn");
-    var confirmModifyBtn = $("#confirmModifyBtn");
+
+    // Capture the new data, validate and ask user to confirm
+    var modify_btn = $("#modifyFormBtn");
+
+    // Execute the modification
+    var confirmModifyBtn = $("#confirmQuestionBtn");
     
     // Get the params from the URL
     const urlParams = new URLSearchParams(window.location.search);
     const idForo = urlParams.get('id');
     
+    deactivateBtn.on("click", function() {
+        flag = 0;
+        $("#questionModalLabel").text("Desactivar Foro");
+        $("#questionModalText").text("¿Está seguro que desea desactivar el foro? Una vez desactivado no se podrá reactivar.");
+        $("#confirmQuestion").modal("show");
+    })
     
-    deactivateBtn.addEventListener("click", function() {
-        var nameForo = $("#foro_name").text();
-        console.log(nameForo);
-        deactivateForo(idForo, nameForo, "home.php");
+    deactivateConfirmBtn.addEventListener("click", function() {
+        if (flag === 0){
+            var nameForo = $("#foro_name").text();
+            
+            deactivateForo(idForo, nameForo, "home.php");    
+        }
+        
     });
 
     modify_foro.on("click", function() {
@@ -42,6 +61,7 @@ $(document).ready(function () {
     })
 
     modify_btn.on("click", function() {
+        flag = 1;
         var idForo = $("#idModifyForo").val();
         var nameForo = $("#nameModifyForo").val();
         var descriptionForo = $("#descriptionMofidyForo").val();
@@ -50,20 +70,25 @@ $(document).ready(function () {
 
         
         if(validateName(nameForo) && validateDescription(descriptionForo)) {
-            $('#modifyModal').modal('show');
+            $("#questionModalLabel").text("Modificar Foro");
+            $("#questionModalText").text("¿Desea modificar el foro?");
+            $('#confirmQuestion').modal('show');
         }
     })
     
     confirmModifyBtn.on("click", function() {
-        var last_name = $("#foro_name").text();
+        if (flag === 1) {
+            var last_name = $("#foro_name").text();
 
-        var idForo = $("#idModifyForo").val();
-        var nameForo = $("#nameModifyForo").val();
-        var descriptionForo = $("#descriptionMofidyForo").val();
-        var imageForo = $("#imageModifyForo").val();
-        var leagueForo = $("#leagueModifyForo").val();
+            var idForo = $("#idModifyForo").val();
+            var nameForo = $("#nameModifyForo").val();
+            var descriptionForo = $("#descriptionMofidyForo").val();
+            var imageForo = $("#imageModifyForo").val();
+            var leagueForo = $("#leagueModifyForo").val();
 
-        modifyForo(idForo, nameForo, descriptionForo, imageForo, leagueForo, last_name);  
+            modifyForo(idForo, nameForo, descriptionForo, imageForo, leagueForo, last_name);
+        }
+          
     })
     
 }); 

@@ -81,18 +81,18 @@ function validateName(nameForo) {
     nameForo = nameForo.trim();
 
     if (nameForo === "" || /^\s+$/.test(nameForo)) {
-        document.getElementById("avisoModalLabel").textContent = "Error en Nombre";
-        document.getElementById("avisoTexto").textContent = "No se admite un nombre vacío.";
-        $('#alertModal').modal('show');
+        $("#confirmModalLabel").text("Error en Nombre");
+        $("#confirmModalText").text("No se admite un nombre vacío.");
+        $('#confirmModal').modal('show');
         $("#nameCreateForo").addClass('border border-danger border-2');
 
         return false;
     }
 
     if (nameForo.length > 50) {
-        document.getElementById("avisoModalLabel").textContent = "Error en Nombre";
-        document.getElementById("avisoTexto").textContent = "El nombre del foro no debe superar los 50 caracteres.";
-        $('#alertModal').modal('show');
+        $("#confirmModalLabel").text("Error en Nombre");
+        $("#confirmModalText").text("El nombre del foro no debe superar los 50 caracteres.");
+        $('#confirmModal').modal('show');
         $("#nameCreateForo").addClass('border border-danger border-2');
 
         return false;
@@ -108,18 +108,18 @@ function validateDescription(descriptionForo) {
     descriptionForo = descriptionForo.trim();
 
     if (descriptionForo === "" || /^\s+$/.test(descriptionForo)) {
-        document.getElementById("avisoModalLabel").textContent = "Error en Nombre";
-        document.getElementById("avisoTexto").textContent = "No se admite una descripción vacía.";
-        $('#alertModal').modal('show');
+        $("#confirmModalLabel").text("Error en descripción");
+        $("#confirmModalText").text("No se admite una descripción vacía.");
+        $('#confirmModal').modal('show');
         $("#descriptionCreateForo").addClass('border border-danger border-2');
 
         return false;
     }
 
-    if (descriptionForo.length > 50) {
-        document.getElementById("avisoModalLabel").textContent = "Error en Nombre";
-        document.getElementById("avisoTexto").textContent = "La descripción del foro no debe superar los 150 caracteres.";
-        $('#alertModal').modal('show');
+    if (descriptionForo.length > 150) {
+        $("#confirmModalLabel").text("Error en descripción");
+        $("#confirmModalText").text("La descripción del foro no debe superar los 150 caracteres.");
+        $('#confirmModal').modal('show');
         $("#descriptionCreateForo").addClass('border border-danger border-2');
 
         return false;
@@ -157,10 +157,11 @@ $(document).ready(function () {
         var leagueForo = $("#leagueCreateForo").val();
 
         if(validateName(nameForo) && validateDescription(descriptionForo)) {
+
             saveForo(nameForo, descriptionForo, imageForo, leagueForo);  
-            document.getElementById("avisoModalLabel").textContent = "Foro Creado";
-            document.getElementById("avisoTexto").textContent = "Se ha creado el foro correctamente.";
-            $('#alertModal').modal('show');
+            $("#confirmModalLabel").text("Foro Creado");
+            $("#confirmModalText").text("Se ha creado el foro correctamente.");
+            $('#confirmModal').modal('show');
             
             cleanForm();
         }

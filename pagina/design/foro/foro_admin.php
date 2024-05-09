@@ -44,7 +44,7 @@ include('../../php/session/validateAdmin.php');
 
     <?php
       include 'modals/modal_modifyForo.php'; 
-      include 'modals/modal_deactivate.php';
+      include 'modals/modal_alerts.php';
     ?>
 
     <!-- SCRIPTS -->

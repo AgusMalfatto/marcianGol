@@ -46,7 +46,7 @@ include ("../../php/session/validateAdmin.php");
 </div>
 
 <?php
-    include 'modals/modal_create.php'; 
+    include 'modals/modal_alerts.php'; 
 ?>
 
 <!-- JavaScript de Bootstrap (jQuery es requerido) -->

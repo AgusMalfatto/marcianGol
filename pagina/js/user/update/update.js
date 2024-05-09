@@ -1,35 +1,48 @@
-function deactivateForo(idForo, nameForo, location) {
+function destroySession() {
+    $.ajax({
+        url: "../../php/session/destroySession.php",
+        type: "POST",
+        success: function(response) {
+            window.location.href = "../../design/user/login.php";
+        },
+        error: function(xhr, status, error) {
+            // Acciones a realizar en caso de error
+            console.log("Error en la solicitud AJAX:", error);
+        }
+    });
+}
+
+function deactivateUser() {
 	return new Promise(function (resolve, reject) {
 		$.ajax({
-            url: "../../php/foro/deactivateForo.php",
-            type: "POST", 
-            data: {id_foro: idForo},
+            url: "../../php/user/deactivateUser.php",
+            type: "POST",
+            datatype: JSON,
             success: function(response) {
-
                 try {
                     response = JSON.parse(response);
                 } catch (error) {
                     response.success = false;
                 }
-                
+                console.log(response.success);
+
                 if (response.success) {
 
-                    $("#confirmModalLabel").text("Foro Desactivado");
-                    document.getElementById("confirmModalText").textContent = "Se desactivó correctamente el foro: '" + nameForo + "'.";
-                    
+                    $("#confirmModalLabel").text("Cuenta desactivada");
+                    $("#confirmModalText").text("Sus fue desactivada exitosamente.");
+                    $("#confirmModal").modal("show");
+
                     // Evento que se dispara cuando el modal se cierra
                     $('#confirmModal').on('hidden.bs.modal', function () {
-                        // Redireccionar una vez que el modal se haya cerrado
-                        window.location.href = location;
+                        destroySession();
                     });
                 } else {
-                    console.log(idForo);
-                    $("#confirmModalLabel").text("Error al desactivar");
-                    document.getElementById("confirmModalText").textContent = "Lo siento, hubo un error al desactivar el foro. Contáctese con soporte";
-                }
 
-                $('#confirmModal').modal('show');
-                $('#confirmQuestion').modal('hide');
+                    $("#confirmModalLabel").text("Error al desactivar");
+                    $("#confirmModalText").text("Lo siento, hubo un error al desactivar su cuenta. Contáctese con soporte.");
+                    $("#confirmModal").modal("show");
+
+                }
             },
             error: function(xhr, status, error) {
                 // Acciones a realizar en caso de error
@@ -40,17 +53,15 @@ function deactivateForo(idForo, nameForo, location) {
 }
 
 
-function modifyForo(idForo, nameForo, descriptionForo, imageForo, leagueForo, last_name) {
+function modifyUser(nameUser, lastname, team) {
     var data = {
-        id_foro: idForo,
-        name: nameForo,
-        description: descriptionForo,
-        photo: imageForo,
-        name_league: leagueForo
+        name: nameUser,
+        last_name: lastname,
+        team_name: team
     }
     return new Promise(function (resolve, reject) {
 		$.ajax({
-            url: "../../php/foro/modifyForo.php",
+            url: "../../php/user/modifyUser.php",
             type: "POST",
             datatype: JSON,
             data: JSON.stringify(data), 
@@ -63,16 +74,16 @@ function modifyForo(idForo, nameForo, descriptionForo, imageForo, leagueForo, la
 
                 if (response.success) {
 
-                    $("#confirmModalLabel").text("Foro Modificado");
-                    $("#confirmModalText").text("Se modificó correctamente el foro: '" + last_name + "'.");
+                    $("#confirmModalLabel").text("Datos Modificados");
+                    $("#confirmModalText").text("Sus datos se modificaron correctamente.");
                 } else {
 
                     $("#confirmModalLabel").text("Error al modificar");
-                    $("#confirmModalText").text("Lo siento, hubo un error al modificar el foro. Contáctese con soporte");
+                    $("#confirmModalText").text("Lo siento, hubo un error al modificar sus datos. Contáctese con soporte.");
                 }
                 
                 $('#confirmModal').modal('show');
-                $('#modifyForoModal').modal('hide');
+                $('#confirmQuestion').modal('hide');
                 
                 // Evento que se dispara cuando el modal se cierra
                 $('#confirmModal').on('hidden.bs.modal', function () {

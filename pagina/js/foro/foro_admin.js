@@ -52,6 +52,9 @@ $(document).ready(function() {
     var tableBody = $("#tabla-body");
     var id_foro;
 
+    // '0' if the use is going to deactivate the foro, '1' if the user is going to modify.
+    var flag;
+
     // Parameter = 1 so the function gets all the foros (actives and non-actives)
     getForo(1).then(function (foros) {
 		if (foros != null) {
@@ -71,11 +74,13 @@ $(document).ready(function() {
 	});
 
     $("#idModifyForo").prop('disabled', true);
+
     // Display modify modal
     $(document).on("click", ".btn-modify", function() {
+        flag = 1;
         
-        var modify_btn = $("#modifyBtn");
-        var confirmModifyBtn = $("#confirmModifyBtn");
+        var modify_btn = $("#modifyFormBtn");
+        var confirmModifyBtn = $("#confirmQuestionBtn");
 
         // Get the ID of the foro clicked
         var id_foro_modify = $(this).attr("id");
@@ -103,23 +108,43 @@ $(document).ready(function() {
     
             
             if(validateName(nameForo) && validateDescription(descriptionForo)) {
-                $('#modifyModal').modal('show');
+                $("#questionModalLabel").text("Modificar Foro");
+                $("#questionModalText").text("¿Desea modificar el foro?");
+                $('#confirmQuestion').modal('show');
             }
+        });
+
+        $("#deactivateForoBtn_modalModify").on("click", function() {
+            flag = 0;
+
+            $("#questionModalLabel").text("Desactivar Foro");
+            $("#questionModalText").text("¿Desea desactivar el foro? Una vez desactivado no se podrá reactivar.");
+            $('#confirmQuestion').modal('show');
+    
+            $("#confirmQuestionBtn").on("click", function() {
+                if (flag === 0) {
+                    deactivateForo(id_foro_modify, foro_data.name, "foro_admin.php");
+                }
+            })
         });
         
         confirmModifyBtn.on("click", function() {
-            var idForo = $("#idModifyForo").val();
-            var nameForo = $("#nameModifyForo").val();
-            var descriptionForo = $("#descriptionMofidyForo").val();
-            var imageForo = $("#imageModifyForo").val();
-            var leagueForo = $("#leagueModifyForo").val();
+            if (flag === 1) {
+                var idForo = $("#idModifyForo").val();
+                var nameForo = $("#nameModifyForo").val();
+                var descriptionForo = $("#descriptionMofidyForo").val();
+                var imageForo = $("#imageModifyForo").val();
+                var leagueForo = $("#leagueModifyForo").val();
     
-            modifyForo(idForo, nameForo, descriptionForo, imageForo, leagueForo, foro_data.name);  
+                modifyForo(idForo, nameForo, descriptionForo, imageForo, leagueForo, foro_data.name);  
+            }
         });
     });
     
     // Display deactive modal
     $(document).on("click", ".btn-deactivate", function() {
+        flag = 0;
+
         // Get the ID of the foro clicked
         var id_foro_modify = $(this).attr("id");
         id_foro_modify = id_foro_modify.split("_");
@@ -129,12 +154,17 @@ $(document).ready(function() {
         var fila = $(this).closest('tr');
         var nameForo = fila.find('td:eq(1)').text();
         
-        $('#deactivateModal').modal('show');
+        $("#questionModalLabel").text("Desactivar Foro");
+        $("#questionModalText").text("¿Desea desactivar el foro? Una vez desactivado no se podrá reactivar.");
+        $('#confirmQuestion').modal('show');
 
-        $("#confirmDeactivateBtn").on("click", function() {
-            deactivateForo(id_foro, nameForo, "foro_admin.php");
+        $("#confirmQuestionBtn").on("click", function() {
+            if (flag === 0) {
+                deactivateForo(id_foro, nameForo, "foro_admin.php");
+            }
         })
     })
 
+    
     
 });

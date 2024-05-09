@@ -105,6 +105,7 @@ $(document).ready(function () {
     getForo(idButton).then(function (foros) {
         if (foros != null) {
             var objForo = JSON.parse(foros);
+            console.log(objForo);
             fillDataForo(objForo.data[0].name, objForo.data[0].description, objForo.data[0].photo, objForo.data[0].league_description, objForo.data[0].id_foro);
 
         } else {
