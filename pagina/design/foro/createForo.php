@@ -11,9 +11,6 @@ include ("templateMenu.php");
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Bootstrap demo</title>
-
-        <!-- Bootstrap -->
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
         <link href="../../css/styles.css" rel="stylesheet">
 
         <!-- Icons8 -->
@@ -52,29 +49,9 @@ include ("templateMenu.php");
     </form>
 </div>
 
-<!-- Modal after deactivate foro -->
-<div class="modal fade" id="alertModal" tabindex="-1" role="dialog" aria-labelledby="avisoModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="avisoModalLabel">Foro Desactivado</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <p id="avisoTexto">
-                    <!-- Text to alert errors on the form -->
-                </p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<script src="../../js/jquery-3.7.1.min.js"></script>
+<?php
+    include 'modal_create.php'; 
+?>
 
 <!-- JavaScript de Bootstrap (jQuery es requerido) -->
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

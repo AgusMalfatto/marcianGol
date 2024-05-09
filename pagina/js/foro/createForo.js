@@ -81,6 +81,7 @@ function validateName(nameForo) {
     nameForo = nameForo.trim();
 
     if (nameForo === "" || /^\s+$/.test(nameForo)) {
+        document.getElementById("avisoModalLabel").textContent = "Error en Nombre";
         document.getElementById("avisoTexto").textContent = "No se admite un nombre vacío.";
         $('#alertModal').modal('show');
         $("#nameCreateForo").addClass('border border-danger border-2');
@@ -89,6 +90,7 @@ function validateName(nameForo) {
     }
 
     if (nameForo.length > 50) {
+        document.getElementById("avisoModalLabel").textContent = "Error en Nombre";
         document.getElementById("avisoTexto").textContent = "El nombre del foro no debe superar los 50 caracteres.";
         $('#alertModal').modal('show');
         $("#nameCreateForo").addClass('border border-danger border-2');
@@ -106,6 +108,7 @@ function validateDescription(descriptionForo) {
     descriptionForo = descriptionForo.trim();
 
     if (descriptionForo === "" || /^\s+$/.test(descriptionForo)) {
+        document.getElementById("avisoModalLabel").textContent = "Error en Nombre";
         document.getElementById("avisoTexto").textContent = "No se admite una descripción vacía.";
         $('#alertModal').modal('show');
         $("#descriptionCreateForo").addClass('border border-danger border-2');
@@ -114,6 +117,7 @@ function validateDescription(descriptionForo) {
     }
 
     if (descriptionForo.length > 50) {
+        document.getElementById("avisoModalLabel").textContent = "Error en Nombre";
         document.getElementById("avisoTexto").textContent = "La descripción del foro no debe superar los 150 caracteres.";
         $('#alertModal').modal('show');
         $("#descriptionCreateForo").addClass('border border-danger border-2');
@@ -154,6 +158,9 @@ $(document).ready(function () {
 
         if(validateName(nameForo) && validateDescription(descriptionForo)) {
             saveForo(nameForo, descriptionForo, imageForo, leagueForo);  
+            document.getElementById("avisoModalLabel").textContent = "Foro Creado";
+            document.getElementById("avisoTexto").textContent = "Se ha creado el foro correctamente.";
+            $('#alertModal').modal('show');
             
             cleanForm();
         }
