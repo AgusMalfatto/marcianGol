@@ -78,7 +78,6 @@ include ("../../php/session/validateSession.php");
 <script src="../../js/foro/update/update.js"></script>
 <script src="../../js/foro/selects/fill_selects.js"></script>
 <script src="../../js/foro/validation/validations.js"></script>
-<script src="../../js/foro/foro_db/foros.js"></script>
 <script src="../../js/foro/getForo.js"></script>
 <script src="../../js/foro/manageForo.js"></script>
 

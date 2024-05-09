@@ -51,7 +51,6 @@ include('../../php/session/validateAdmin.php');
     <script src="../../js/foro/update/update.js"></script>
     <script src="../../js/foro/selects/fill_selects.js"></script>
     <script src="../../js/foro/validation/validations.js"></script>
-    <script src="../../js/foro/foro_db/foros.js"></script>
     <script src="../../js/foro/getForoHome.js"></script>
     <script src="../../js/foro/foro_admin.js"></script>
   </body>
