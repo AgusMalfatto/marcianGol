@@ -1,11 +1,24 @@
 // Ajax to get all the foros from database
-function getForo() {
+function getForo(active=0) {
 	return new Promise(function (resolve, reject) {
-		var settings = {
-			"url": "../../php/foro/getForo.php",
-			"method": "GET",
-			"timeout": 0,
-		};
+		var settings;
+		if (active === 0) {
+			settings = {
+				"url": "../../php/foro/getForo.php",
+				"method": "GET",
+				"timeout": 0,
+			};
+		} else {
+			settings = {
+				"url": "../../php/foro/getForo.php",
+				"method": "GET",
+				"timeout": 0,
+				"data": {
+					active_foro: active
+				}
+			};
+		}
+		
 
 		$.ajax(settings).done(function (response) {
 			resolve(response);
