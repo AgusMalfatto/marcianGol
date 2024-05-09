@@ -36,12 +36,14 @@ if ($id_foro === null) {
                                 FROM foro F
                                 INNER JOIN league L
                                 ON F.id_league = L.id_league
-                                WHERE F.active = 1");
+                                WHERE F.active = 1
+                                ORDER BY F.id_foro DESC");
     } else {
         $stmt = $conn->prepare("SELECT F.id_foro, F.photo, F.name, F.description, F.date_creation, L.description as league_description, F.active
                                 FROM foro F
                                 INNER JOIN league L
-                                ON F.id_league = L.id_league");
+                                ON F.id_league = L.id_league
+                                ORDER BY F.id_foro DESC");
     }
     
 
