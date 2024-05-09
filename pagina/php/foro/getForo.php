@@ -5,6 +5,7 @@
 /* 
 
 If it recives an id of the foro, it returns that one. If not, then returns all the foros actives in the database.
+$active_foro recives a boolean: 1 if you need all the foros (actives and non-actives), if you need just active foros don´t send this parameter.
 
 Returns an object with the next keys:
     - success: Boolean.
@@ -20,6 +21,7 @@ include ("../error_stmt/errorFunctions.php");
 
 
 $id_foro = !empty($_GET['id_foro']) ? $_GET['id_foro'] : null;
+$active_foro = !empty($_GET['active_foro']) ? $_GET['active_foro'] : null;
 
 $result = new stdClass();
 $result->success = true;
@@ -29,11 +31,19 @@ mysqli_select_db($conn, $db_name);
 
 # If recives an ID of a foro
 if ($id_foro === null) {
-    $stmt = $conn->prepare("SELECT F.id_foro, F.photo, F.name, F.description, F.date_creation, L.description as league_description
-                    FROM foro F
-                    INNER JOIN league L
-                    ON F.id_league = L.id_league
-                    WHERE F.active = 1");
+    if ($active_foro === null) {
+        $stmt = $conn->prepare("SELECT F.id_foro, F.photo, F.name, F.description, F.date_creation, L.description as league_description
+                                FROM foro F
+                                INNER JOIN league L
+                                ON F.id_league = L.id_league
+                                WHERE F.active = 1");
+    } else {
+        $stmt = $conn->prepare("SELECT F.id_foro, F.photo, F.name, F.description, F.date_creation, L.description as league_description, F.active
+                                FROM foro F
+                                INNER JOIN league L
+                                ON F.id_league = L.id_league");
+    }
+    
 
     !$stmt ? error_stmt($result, "Error preparing the query: " . $conn->error, $stmt, $conn) : 0;
 
