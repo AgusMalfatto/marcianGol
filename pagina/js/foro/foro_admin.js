@@ -1,76 +1,54 @@
-function deactivateForo(idForo) {
-	return new Promise(function (resolve, reject) {
-		$.ajax({
-            url: "../../php/foro/deactivateForo.php", // URL del script PHP que manejará la solicitud
-            type: "POST", // Método de envío de la solicitud
-            data: {id_foro: idForo}, // Datos a enviar
-            success: function(response) {
 
-                try {
-                    response = JSON.parse(response);
-                } catch (error) {
-                    response.success = false;
-                }
-                
-                if (response.success) {
 
-                    $("#avisoModalLabel").text("Foro Desactivado");
-                    document.getElementById("avisoTexto").textContent = "Se desactivó correctamente el foro.";
-                    
-                    // Evento que se dispara cuando el modal se cierra
-                    $('#confirmModal').on('hidden.bs.modal', function () {
-                        // Redireccionar una vez que el modal se haya cerrado
-                        window.location.href = 'foro_admin.php';
-                    });
-                } else {
-                    $("#avisoModalLabel").text("Error al modificar");
-                    document.getElementById("avisoTexto").textContent = "Lo siento, hubo un error al desactivar el foro. Contáctese con soporte";
-                }
 
-                $('#confirmModal').modal('show');
-                $('#deactivateModal').modal('hide');
-            },
-            error: function(xhr, status, error) {
-                // Acciones a realizar en caso de error
-                console.log("Error en la solicitud AJAX:", error);
-            }
-        });
-	});
-}
-
-// Función para crear una fila de la tabla
+// Function to create the rows
 function crearFila(datos) {
     var imageForo = datos.photo.split("/");
-    var imageForo = imageForo.pop(); // Obtiene la última parte del array, que es el nombre del archivo con la extensión
+    var imageForo = imageForo.pop();
     var imageForo = imageForo.split(".")[0];
 
     var id_deactivate_btn = "deactivate_btn_" + datos.id_foro;
     var id_modify_btn = "modify_btn_" + datos.id_foro;
 
-    var fila = $("<tr>");
-    fila.append("<td>" + datos.id_foro + "</td>");
-    fila.append("<td>" + datos.name + "</td>");
-    fila.append("<td>" + datos.description + "</td>");
-    fila.append("<td>" + imageForo + "</td>");
-    fila.append("<td>" + datos.league_description + "</td>");
-    fila.append("<td>" + datos.date_creation + "</td>");
-    fila.append("<td>" + datos.active + "</td>");
+    // Creating rows
+    var row = $("<tr>");
+    row.append("<td>" + datos.id_foro + "</td>");
+    row.append("<td>" + datos.name + "</td>");
+    row.append("<td>" + datos.description + "</td>");
+    row.append("<td>" + imageForo + "</td>");
+    row.append("<td>" + datos.league_description + "</td>");
+    row.append("<td>" + datos.date_creation + "</td>");
+    row.append("<td>" + datos.active + "</td>");
     
     if (datos.active === 1) {
-        fila.append('<td><button class="btn-deactivate btn btn-danger" id="' + id_deactivate_btn + '">Desactivar</button></td>');
-        fila.append('<td><button type="button" class="btn-modify btn btn-primary" id="' + id_modify_btn + '" data-toggle="modal" data-target="#modifyForoModal">Modificar</button></td>');
-        fila.append('<td><a href="showForo.php?id=' + datos.id_foro + '" type="button" class="btn-modify btn btn-primary" id="' + id_modify_btn + '">Ver Foro</a></td>');
+        row.append('<td><button class="btn-deactivate btn btn-danger" id="' + id_deactivate_btn + '">Desactivar</button></td>');
+        row.append('<td><button type="button" class="btn-modify btn btn-primary" id="' + id_modify_btn + '" data-toggle="modal" data-target="#modifyForoModal">Modificar</button></td>');
+        row.append('<td><a href="showForo.php?id=' + datos.id_foro + '" type="button" class="btn-modify btn btn-primary" id="' + id_modify_btn + '">Ver Foro</a></td>');
     } else {
-        fila.append('<td><button class="btn btn-danger disabled">Desactivar</button></td>');
-        fila.append('<td><button class="btn-modify btn btn-primary disabled">Modificar</button></td>');
-        fila.append('<td><button class="btn-modify btn btn-primary disabled">Ver Foro</button></td>');
+        row.append('<td><button class="btn btn-danger disabled">Desactivar</button></td>');
+        row.append('<td><button class="btn-modify btn btn-primary disabled">Modificar</button></td>');
+        row.append('<td><button class="btn-modify btn btn-primary disabled">Ver Foro</button></td>');
     }
     
-    return fila;
+    return row;
 }
 
-// Agregar filas a la tabla
+// Function to fill the modify form with the foro information
+function fillModifyForm(foro) {
+
+    $("#idModifyForo").val(foro.id_foro);
+    $("#nameModifyForo").val(foro.name);
+    $("#descriptionMofidyForo").val(foro.description);
+    $("#imageModifyForo").val(foro.team);
+    $("#leagueModifyForo").val(foro.league);
+
+}
+
+
 $(document).ready(function() {
+    completeImageSelect();
+    completeLeagueSelect();
+
     var tableBody = $("#tabla-body");
     var id_foro;
 
@@ -92,29 +70,71 @@ $(document).ready(function() {
 		console.error("Error al obtener foros:", error);
 	});
 
-    // Display modal modify foro
+    $("#idModifyForo").prop('disabled', true);
+    // Display modify modal
     $(document).on("click", ".btn-modify", function() {
+        
+        var modify_btn = $("#modifyBtn");
+        var confirmModifyBtn = $("#confirmModifyBtn");
 
         // Get the ID of the foro clicked
         var id_foro_modify = $(this).attr("id");
         id_foro_modify = id_foro_modify.split("_");
         id_foro_modify = id_foro_modify[id_foro_modify.length - 1];
 
+        var fila = $(this).closest('tr');
+        var foro_data = {
+            id_foro: id_foro_modify,
+            name: fila.find('td:eq(1)').text(),
+            description: fila.find('td:eq(2)').text(),
+            team: fila.find('td:eq(3)').text(),
+            league: fila.find('td:eq(4)').text(),
+        }
+
+        fillModifyForm(foro_data);
         $('#modifyForoModal').modal('show');
-    })
+
+        modify_btn.on("click", function() {
+            var idForo = $("#idModifyForo").val();
+            var nameForo = $("#nameModifyForo").val();
+            var descriptionForo = $("#descriptionMofidyForo").val();
+            var imageForo = $("#imageModifyForo").val();
+            var leagueForo = $("#leagueModifyForo").val();
     
+            
+            if(validateName(nameForo) && validateDescription(descriptionForo)) {
+                $('#modifyModal').modal('show');
+            }
+        });
+        
+        confirmModifyBtn.on("click", function() {
+            var idForo = $("#idModifyForo").val();
+            var nameForo = $("#nameModifyForo").val();
+            var descriptionForo = $("#descriptionMofidyForo").val();
+            var imageForo = $("#imageModifyForo").val();
+            var leagueForo = $("#leagueModifyForo").val();
+    
+            modifyForo(idForo, nameForo, descriptionForo, imageForo, leagueForo, foro_data.name);  
+        });
+    });
+    
+    // Display deactive modal
     $(document).on("click", ".btn-deactivate", function() {
         // Get the ID of the foro clicked
         var id_foro_modify = $(this).attr("id");
         id_foro_modify = id_foro_modify.split("_");
         id_foro_modify = id_foro_modify[id_foro_modify.length - 1];
         id_foro = id_foro_modify;
+
+        var fila = $(this).closest('tr');
+        var nameForo = fila.find('td:eq(1)').text();
         
         $('#deactivateModal').modal('show');
+
+        $("#confirmDeactivateBtn").on("click", function() {
+            deactivateForo(id_foro, nameForo, "foro_admin.php");
+        })
     })
 
-    $("#confirmDeactivateBtn").on("click", function() {
-        deactivateForo(id_foro);
-    })
     
 });

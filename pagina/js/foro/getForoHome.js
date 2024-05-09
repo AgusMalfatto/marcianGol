@@ -69,7 +69,6 @@ function createForoCard(id_foro, nombre, descripcion, imagenUrl) {
 	return cardDiv;
 }
 
-
 function createTrendForoCard(id_foro, nombre, descripcion, imagenUrl, date_creation) {
 	// Create tags
 	var cardDiv = document.createElement('div');
