@@ -13,9 +13,10 @@ Returns an object with the next keys:
 
 include ("../session/validateSession.php");
 include ("../database/connection.php");
-include ("../error_stmt/errorFucntions.php");
+include ("../error_stmt/errorFunctions.php");
 
 $result = new stdClass();
+$result->success = true;
 
 $databaseName = "marcianGol";
 mysqli_select_db($conn, $databaseName);
@@ -37,5 +38,6 @@ if (!$stmt->execute()) {
 $stmt->close();
 $conn->close(); 
 
-header('Location: ../../index.html');
+echo json_encode($result);
+
 ?>
