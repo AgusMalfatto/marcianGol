@@ -15,6 +15,8 @@ include ("../session/validateSession.php");
 include ("../database/connection.php");
 include ("../error_stmt/errorFunctions.php");
 
+$id_user = !empty($_GET['id_user']) ? $_GET['id_user'] : null;
+
 $result = new stdClass();
 $result->success = true;
 
@@ -29,11 +31,17 @@ if (!$stmt) {
     error_stmt($result, "Error preparing the query: " . $conn->error, $stmt, $conn);
 }
 
-$stmt->bind_param("i", $_SESSION['id_user']);
+if ($id_user === null) {
+    $stmt->bind_param("i", $_SESSION['id_user']);
+} else {
+    $stmt->bind_param("i", $id_user);
+}
 
 if (!$stmt->execute()) {
     error_stmt($result, "Error executing the query: " . $conn->error, $stmt, $conn);
-} 
+}     
+
+
 
 $stmt->close();
 $conn->close(); 
