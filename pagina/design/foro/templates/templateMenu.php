@@ -28,7 +28,7 @@
                 if($_SESSION['admin']) {
                   echo '<li><a class="nav-link" href="/marciangol/pagina/design/foro/createForo.php">Crear Foro</a></li>';                
                   echo '<li><a class="nav-link" href="/marciangol/pagina/design/foro/foro_admin.php">Ver Foros</a></li>';
-                  echo '<li><a class="nav-link" href="#">Ver Usuarios</a></li>';
+                  echo '<li><a class="nav-link" href="/marciangol/pagina/design/foro/user_admin.php">Ver Usuarios</a></li>';
                 } 
             ?>
 
