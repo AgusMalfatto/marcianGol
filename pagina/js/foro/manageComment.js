@@ -1,3 +1,7 @@
+function createComment() {
+    var id_foro = $("#id_foro").text();
+    alert(id_foro);
+}
 
 // Ajax to update the like interaction
 function updateLike(id_comment) {
@@ -44,4 +48,16 @@ $(document).ready(function() {
 
         updateLike(parseInt(id_comment));
     })  
+
+    $("#add_comment_btn").on("click", function() {
+        $("#commentForoModal").modal("show");
+
+        $("#confirmCommentForo").on("click", function() {
+            var comment = $("#commentTextareaForo").val();
+
+            if(validateComment(comment)) {
+                createComment();
+            }
+        });
+    });
 })
