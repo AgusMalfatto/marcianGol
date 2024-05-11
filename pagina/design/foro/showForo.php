@@ -52,6 +52,7 @@ include ("../../php/session/validateSession.php");
 </div>
 
 <?php
+    include 'modals/modal_comment.php';
     include 'modals/modal_modifyForo.php'; 
     include 'modals/modal_alerts.php';
 ?>
