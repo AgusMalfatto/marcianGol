@@ -48,19 +48,20 @@ function fillDataForo(nameForo, description, image_url, league, id_foro) {
 
 // Create comment card and add to the DOM
 function createCommentCard(comment) {
+    console.log(comment);
 
     /* Creating contents cards */
     var commentCard = document.createElement('div');
     commentCard.classList.add('card', 'm-3', 'content');
 
     var userNameCard = document.createElement('div');
-    userNameCard.classList.add('card', 'm-3', 'author');
+    userNameCard.classList.add('m-1', 'author');
 
     var contentCard = document.createElement('div');
-    contentCard.classList.add('card', 'm-3');
+    contentCard.classList.add('m-1');
 
     var likesCard = document.createElement('div');
-    likesCard.classList.add('card', 'm-3');
+    likesCard.classList.add('m-3', 'd-flex', 'align-items-center');
 
     /* Creating info tags */
     var nameTag = document.createElement('h5');
@@ -72,15 +73,30 @@ function createCommentCard(comment) {
     contentTag.textContent = comment.description;
 
     var likesTag = document.createElement('p');
-    likesTag.classList.add('card-text');
+    likesTag.classList.add('card-text', 'm-0', 'mr-2');
     likesTag.textContent = comment.Likes;
+    var idLikesTag = "idLikesTag_" + comment.id_comment;
+    likesTag.setAttribute('id', idLikesTag);
+
+    var likeButton = document.createElement('button');
+    likeButton.classList.add('btn', 'd-flex', 'align-items-center', 'btn_reaction');
+    var idButton = "reaction_" + comment.id_comment;
+    likeButton.setAttribute("id", idButton);
     var likesIcon = document.createElement('i');
-    likesIcon.classList.add('las', 'la-thumbs-up');
+    var idIcon = "iconId_" + comment.id_comment;
+    likesIcon.setAttribute("id", idIcon);
+    
+    if(comment.Reaction === "1") {
+        likesIcon.classList.add('las', 'la-heart', 'la-2x');
+    } else {
+        likesIcon.classList.add('lar', 'la-heart', 'la-2x');
+    }
 
     /* Append */
     userNameCard.appendChild(nameTag);
     contentCard.appendChild(contentTag);
-    likesCard.appendChild(likesIcon);
+    likeButton.appendChild(likesIcon);
+    likesCard.appendChild(likeButton);
     likesCard.appendChild(likesTag);
 
     commentCard.appendChild(userNameCard);

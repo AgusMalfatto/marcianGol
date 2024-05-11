@@ -56,11 +56,14 @@ include ("../../php/session/validateSession.php");
     include 'modals/modal_alerts.php';
 ?>
 
-<div id="filter-zone" class="btn">Filtrar y Ordenar</div>
+<!-- COMMENT SECTIONS -->
 
-<h3>Comment Section</h3>
+<h3 class="mt-3">Comment Section</h3>
 
-<button id='add_comment_btn' type='button' class='btn btn-primary'>Añadir Comentario</button>
+<div class="text-right">
+    <button id='add_comment_btn' type='button' class='btn btn-primary' title="Añadir mensaje"><i class="las la-plus-circle la-2x"></i></button>
+    <button id="filter-zone"  type='button' class='btn btn-primary' title="Filtrar"><i class="las la-filter la-2x"></i></button>    
+</div>
 
 <section id="comment-section">
     <div id="content-comment">
@@ -80,6 +83,7 @@ include ("../../php/session/validateSession.php");
 <script src="../../js/foro/validation/validations.js"></script>
 <script src="../../js/foro/getForo.js"></script>
 <script src="../../js/foro/manageForo.js"></script>
+<script src="../../js/foro/manageComment.js"></script>
 
 </body>
 </html>
