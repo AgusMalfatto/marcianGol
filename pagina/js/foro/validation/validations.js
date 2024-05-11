@@ -56,3 +56,32 @@ function validateDescription(descriptionForo) {
 
     return true;
 }
+
+
+function validateComment(comment) {
+    comment = comment.trim();
+
+    if (comment === "" || /^\s+$/.test(comment)) {
+        $("#confirmModalLabel").text("Datos incorrectos.");
+        $("#confirmModalText").text("No se admite un comentario vacío.");
+
+        $('#confirmModal').modal('show');
+        $("#commentTextareaForo").addClass('border border-danger border-2');
+
+        return false;
+    }
+
+    if (comment.length > 150) {
+        $("#confirmModalLabel").text("Datos incorrectos.");
+        $("#confirmModalText").text("El comentario no debe superar los 200 caracteres.");
+
+        $('#confirmModal').modal('show');
+        $("#commentTextareaForo").addClass('border border-danger border-2');
+
+        return false;
+    }
+
+    $("#commentTextareaForo").removeClass('border border-danger border-2');
+
+    return true;
+}
