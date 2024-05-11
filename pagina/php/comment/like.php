@@ -44,12 +44,12 @@ function update_reaction($conn, $id_comment, $result) {
     $stmt->close();
 }
 
-function insert_reaction($conn, $id_comment, $reaction, $result) {
-    $query = "INSERT INTO likes (id_comment, id_user, is_like) VALUES (?, ?, ?)";
+function insert_reaction($conn, $id_comment, $result) {
+    $query = "INSERT INTO likes (id_comment, id_user, is_like) VALUES (?, ?, 1)";
     $stmt = $conn->prepare($query);
 
     !$stmt ? error_stmt($result, "Error preparing the query: " . $conn->error, $stmt, $conn) : 0;
-    $stmt->bind_param("iii", $id_comment, $_SESSION['id_user'], $reaction);
+    $stmt->bind_param("ii", $id_comment, $_SESSION['id_user']);
 
     !$stmt->execute() ? error_stmt($result, "Error executing the query: " . $stmt->error, $stmt, $conn) : 0;
     $stmt->close();
@@ -57,11 +57,11 @@ function insert_reaction($conn, $id_comment, $reaction, $result) {
 
 
 $id_comment = isset($_POST['id_comment']) ? $_POST['id_comment'] : null;
-$add_like = isset($_POST['add_like']) ? (bool)$_POST['add_like'] : null;
 
 $result = new stdClass();
+$result->id_comment = $id_comment;
 
-($id_comment == null || $add_like == null) ? error_request($result, "All fields must be complete") : 0;
+($id_comment === null) ? error_request($result, "All fields must be complete") : 0;
 
 $db_name = "marciangol";
 mysqli_select_db($conn, $db_name);
@@ -76,23 +76,19 @@ if (!$comment_active) {
 # Validate the number of likes
 $likesInfo = like_status($conn, $id_comment);
 
-#die(json_encode($likesInfo));
 # If the user had already react to the comment
-if ($likesInfo->success) {
-    # If the user now make the same reaction as before
-    if ($likesInfo->is_like == $add_like) {
-        delete_reaction($conn, $id_comment, $result);
-        $result->reaction = false;
-    } else {
-        update_reaction($conn, $id_comment, $result);
-        $result->reaction = true;
-        $result->reaction_status = $add_like;
-    }
+if ($likesInfo->user_likes) {
+    
+    delete_reaction($conn, $id_comment, $result);
+    $result->reaction = false;
 } else {
-    insert_reaction($conn, $id_comment, $add_like, $result);
+    insert_reaction($conn, $id_comment, $result);
     $result->reaction = true;
-    $result->reaction_status = $add_like;
 }
+
+# Number of likes of the comment
+$count_likes = count_likes($conn, $id_comment);
+$result->count_likes = $count_likes->count_likes;
 
 $result->success = true;
 $conn->close();

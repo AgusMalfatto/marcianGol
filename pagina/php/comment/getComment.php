@@ -30,6 +30,9 @@ mysqli_select_db($conn, $db_name);
 
 $stmt = $conn->prepare("SELECT C.id_comment, C.description, C.date_comment, U.name, U.last_name, 
                         SUM(
+                            IF (L.id_user = ?, 1, 0)
+                        ) as Reaction,
+                        SUM(
                             CASE 
                                 WHEN L.is_like = 1 THEN 1
                                 WHEN L.is_like = 0 THEN -1
@@ -48,7 +51,7 @@ $stmt = $conn->prepare("SELECT C.id_comment, C.description, C.date_comment, U.na
 
 !$stmt ? error_stmt($result, "Error preparing the query: " . $conn->error, $stmt, $conn) : 0;
 
-$stmt->bind_param("i", $id_foro);
+$stmt->bind_param("ii", $_SESSION['id_user'], $id_foro);
 
 !$stmt->execute() ? error_stmt($result, "Error executing the query: " . $conn->error, $stmt, $conn) : 0;
     

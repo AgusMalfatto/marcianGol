@@ -88,22 +88,59 @@ function like_status($conn, $id_comment) {
         return $result->success;
     }
 
-    $stmt = $conn->prepare("SELECT is_like FROM likes WHERE id_comment = ? AND id_user = ?");
+    $stmt = $conn->prepare("SELECT  is_like
+                            FROM likes
+                            WHERE id_comment = ? AND id_user = ?;");
     !$stmt ? error_stmt($result, "Error preparing the query: " . $stmt->error, $stmt, $conn) : 0;
 
     $stmt->bind_param("ii", $id_comment, $_SESSION['id_user']);
 
     !$stmt->execute() ? error_stmt($result, "Error executing the query: " . $stmt->error, $stmt, $conn) : 0;
-    # Getting the results
-    $stmt->bind_result($result->is_like);
 
-    if (!$stmt->fetch()) {
+    # Getting the results
+    $resultSet = $stmt->get_result();
+
+    // Obtener la primera fila del resultado
+    $row = $resultSet->fetch_assoc();
+
+    empty($row['is_like']) ? $result->user_likes = 0 : $result->user_likes = 1;
+    
+    return $result;    
+}
+
+# Return the number of likes the comment has
+function count_likes($conn, $id_comment) {
+
+    include_once ("../error_stmt/errorFunctions.php");
+
+    $result = new stdClass();
+
+    if (!$id_comment) {
         $result->success = false;
-    } else {
-        $result->success = true;
+        $conn->close();
+        return $result->success;
     }
 
-     return $result;
+    $stmt = $conn->prepare("SELECT COUNT(1) as count_likes
+                            FROM likes 
+                            WHERE id_comment = ?;");
+
+    !$stmt ? error_stmt($result, "Error preparing the query: " . $stmt->error, $stmt, $conn) : 0;
+
+    $stmt->bind_param("i", $id_comment);
+
+    !$stmt->execute() ? error_stmt($result, "Error executing the query: " . $stmt->error, $stmt, $conn) : 0;
+
+    # Getting the results
+    $resultSet = $stmt->get_result();
+
+    $row = $resultSet->fetch_assoc();
+
+    // Obtener los valores de 'count_likes' de la fila resultante
+    $result->count_likes = $row['count_likes'];
+    
+    return $result;
+    
 }
 
 
