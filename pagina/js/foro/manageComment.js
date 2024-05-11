@@ -1,6 +1,24 @@
-function createComment() {
-    var id_foro = $("#id_foro").text();
-    alert(id_foro);
+function createComment(comment) {
+    return new Promise(function (resolve, reject){
+        var id_foro = $("#id_foro").text();
+        var settings = {
+            "url": "../../php/comment/addComment.php",
+            "method": "POST",
+            "timeout": 0,
+            "data": {
+                "id_foro": id_foro,
+                "description": comment
+            }
+        };
+        $.ajax(settings).done(function(response) {
+            resolve(response);
+            $("#commentForoModal").modal("hide");
+
+            console.log(response);
+        }).fail(function (jqXHR, textStatus, errorThrown) {
+            reject(errorThrown);
+        });
+    });
 }
 
 // Ajax to update the like interaction
@@ -56,7 +74,7 @@ $(document).ready(function() {
             var comment = $("#commentTextareaForo").val();
 
             if(validateComment(comment)) {
-                createComment();
+                createComment(comment);
             }
         });
     });
