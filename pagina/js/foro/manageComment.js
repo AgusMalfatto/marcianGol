@@ -1,3 +1,4 @@
+// Ajax to get user data
 function getUser() {
     return new Promise(function (resolve, reject) {
 		var settings = {
@@ -15,6 +16,7 @@ function getUser() {
 	});
 }
 
+// Ajax to add new comment to the database
 function createComment(comment) {
     return new Promise(function (resolve, reject){
         var id_foro = $("#id_foro").text();
@@ -107,7 +109,7 @@ function manageComment(newComment, id_comment) {
     
 }
 
-
+// Ajax to get filter comments from the database of one foro
 function getFilterComments(id_foro, filterText = "", order_by = "") {
     return new Promise(function (resolve, reject){
         var settings = {
@@ -136,7 +138,7 @@ function getFilterComments(id_foro, filterText = "", order_by = "") {
     });
 }
 
-
+// Function to add cards of every comments of the foro
 function fillBodyCommentsSection(comments) {
     /* Creating cards for each comment */
     document.getElementById('content-comment').innerHTML = "";
@@ -146,6 +148,7 @@ function fillBodyCommentsSection(comments) {
     })
 }
 
+// Ajax to deactivate a comment
 function deactivateComment(id_comment) {
     return new Promise(function (resolve, reject) {
         var settings = {
@@ -168,6 +171,8 @@ function deactivateComment(id_comment) {
 
 
 $(document).ready(function() {
+
+    // Manage the like button interaction
     $(document).on("click", ".btn_reaction", function() {
         // Getting the ID of the comment
         var id_comment = $(this).attr('id');
@@ -177,6 +182,7 @@ $(document).ready(function() {
         manageLike(parseInt(id_comment));
     })  
 
+    // Manage the new comment button interaction
     $("#add_comment_btn").on("click", function() {
         $("#commentForoModal").modal("show");
 
@@ -192,6 +198,7 @@ $(document).ready(function() {
         });
     });
 
+    // Manage the filter button interaction
     $('#filter_btn').on('click', function() {
         var filterText = $("#inputFilterComment").val();
         var orderText = $("#selectOrderComment").val();
@@ -202,6 +209,7 @@ $(document).ready(function() {
         })
     });
 
+    // Manage the clean filter button interaction
     $("#clean_filter_btn").on("click", function () {
         $("#inputFilterComment").val("");
         $("#selectOrderComment").val("");
@@ -211,6 +219,7 @@ $(document).ready(function() {
         })
     })
 
+    // Manage the delete comment button interaction
     $(document).on("click", ".trash_btn_class", function() {
         var id_comment = $(this).attr("id");
         id_comment = id_comment.split("_");
@@ -220,6 +229,7 @@ $(document).ready(function() {
         $("#questionModalText").text("¿Desea eliminar el comentario?");
         $("#confirmQuestion").modal("show");
 
+        // If the user confirm to delete the comment
         $("#confirmQuestionBtn").on("click", function () {
             deactivateComment(id_comment).then(function(response) {
                 if (response.success) {
