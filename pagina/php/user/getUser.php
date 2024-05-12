@@ -33,7 +33,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     mysqli_select_db($conn, $databaseName);
 
     if ($active_user === null) {
-        $stmt = $conn->prepare("SELECT U.id_user, U.name, U.last_name, U.email, T.photo
+        $stmt = $conn->prepare("SELECT U.id_user, U.name, U.last_name, U.email, U.admin, T.photo
                                 FROM user U
                                 INNER JOIN team T
                                 ON T.id_team = U.id_team
@@ -49,7 +49,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             error_stmt($result, "Error executing the query: " . $conn->error, $stmt, $conn);
         } 
         
-        $stmt->bind_result($result->id_user, $result->name, $result->last_name, $result->email, $result->photo);
+        $stmt->bind_result($result->id_user, $result->name, $result->last_name, $result->email, $result->admin, $result->photo);
 
         if (!$stmt->fetch()) {
             error_request($result, "No result for the Id User: " . $_SESSION['id_user']);
@@ -59,7 +59,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
         
     } else {
-        $stmt = $conn->prepare("SELECT U.id_user, U.name as user_name, U.last_name, U.email, T.name, U.active
+        $stmt = $conn->prepare("SELECT U.id_user, U.name as user_name, U.last_name, U.email, U.admin, T.name, U.active
                                 FROM user U
                                 INNER JOIN team T
                                 ON T.id_team = U.id_team");

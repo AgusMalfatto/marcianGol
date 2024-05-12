@@ -44,6 +44,8 @@ $stmt->bind_param("ssii", $description, $date_comment, $id_foro, $_SESSION['id_u
 
 !$stmt->execute() ? error_stmt($result, "Error executing the query: " . $conn->error, $stmt, $conn) : 0;
 
+$result->id_newComment = mysqli_insert_id($conn);
+
 $result->success = true;
 
 echo json_encode($result);
