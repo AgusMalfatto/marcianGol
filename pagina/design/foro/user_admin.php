@@ -20,16 +20,16 @@ include('../../php/session/validateAdmin.php');
     <h1>Administración de Usuarios</h1>
 
     <div class="container">
-        <table class="table table-striped">
+        <table class="table table-striped" id="table_userList">
             <thead>
                 <tr>
-                    <th>ID Usuario</th>
-                    <th>Nombre</th>
-                    <th>Apellido</th>
-                    <th>Email</th>
-                    <th>Equipo</th>
-                    <th>Activo</th>
-                    <th>Admin</th>
+                    <th class="sortable cursor-point" data-column="id">ID</th>
+                    <th class="sortable cursor-point" data-column="nombre">Nombre</th>
+                    <th class="sortable cursor-point" data-column="apellido">Apellido</th>
+                    <th class="sortable cursor-point" data-column="email">Email</th>
+                    <th class="sortable cursor-point" data-column="equipo">Equipo</th>
+                    <th class="sortable cursor-point" data-column="activo">Activo</th>
+                    <th class="sortable cursor-point" data-column="admin">Admin</th>
                     <th>Acciones</th>
                 </tr>
             </thead>

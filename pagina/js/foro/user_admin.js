@@ -91,6 +91,49 @@ function createRow(user) {
     return row;
 }
 
+// Función de comparación personalizada para ordenar por iconos
+function compareIcons(a, b) {
+    var iconA = $(a).find('i').attr('class');
+    var iconB = $(b).find('i').attr('class');
+
+    // Lógica para ordenar por clases de iconos
+    if (iconA < iconB) {
+        return -1;
+    }
+    if (iconA > iconB) {
+        return 1;
+    }
+    return 0;
+}
+
+function orderTableUser(column, order) {
+    var table = $('#table_userList').find('tbody');
+    var rows = table.find('tr').toArray();
+
+    rows.sort(function(a, b) {
+        // If the column is 'activo' or 'admin' I catch the class to order, and if not I catch the atribute 'data-column'
+        if ((column === 'activo') || (column === 'admin')) {
+            var aValue = $(a).find('td:eq(' + $('th[data-column="' + column + '"]').index() + ')').find('i').attr('class');
+            var bValue = $(b).find('td:eq(' + $('th[data-column="' + column + '"]').index() + ')').find('i').attr('class');
+
+        } else {
+            var aValue = $(a).find('td:eq(' + $('th[data-column="' + column + '"]').index() + ')').text();
+            var bValue = $(b).find('td:eq(' + $('th[data-column="' + column + '"]').index() + ')').text();
+        }
+         
+        // Convertir valores a minúsculas para la comparación (ignorar mayúsculas/minúsculas)
+        aValue = aValue.toLowerCase();
+        bValue = bValue.toLowerCase();
+    
+        if (order === 'asc') {
+            return aValue > bValue ? 1 : -1;
+        } else {
+            return aValue < bValue ? 1 : -1;
+        }
+    });
+
+    table.empty().append(rows);
+}
 
 $(document).ready(function() {
     
@@ -110,7 +153,6 @@ $(document).ready(function() {
 	}).catch(function (error) {
 		console.error("Error al obtener foros:", error);
 	});
-
 
     // Display deactive modal
     $(document).on("click", ".btn-deactivate", function() {
@@ -134,4 +176,20 @@ $(document).ready(function() {
             deactivateUser(id_user, complete_name, "user_admin.php");
         })
     })
+
+    // Manage the sort request
+    $('.sortable').on('click', function() {
+
+        var column = $(this).data('column');
+        var sortOrder = $(this).hasClass('asc') ? 'desc' : 'asc';
+        
+        // Remover clases de ordenación de otras columnas
+        $('.sortable').removeClass('asc desc');
+        
+        // Agregar clase de ordenación a la columna clicada
+        $(this).addClass(sortOrder);
+        
+        // Lógica para ordenar la tabla
+        orderTableUser(column, sortOrder);
+    });
 })

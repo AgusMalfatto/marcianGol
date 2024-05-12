@@ -39,14 +39,21 @@ function crearFila(datos, admin) {
     return row;
 }
 
-function ordenarTabla(column, order) {
+// Function to order the rows on the tables
+function orderTableForo(column, order) {
     var table = $('#table_foroList').find('tbody');
     var rows = table.find('tr').toArray();
-    console.log(rows);
 
     rows.sort(function(a, b) {
-        var aValue = $(a).find('td:eq(' + $('th[data-column="' + column + '"]').index() + ')').text();
-        var bValue = $(b).find('td:eq(' + $('th[data-column="' + column + '"]').index() + ')').text();
+        // If the column is 'activo' I catch the class to order, and if not I catch the atribute 'data-column'
+        if ((column === 'activo')) {
+            var aValue = $(a).find('td:eq(' + $('th[data-column="' + column + '"]').index() + ')').find('i').attr('class');
+            var bValue = $(b).find('td:eq(' + $('th[data-column="' + column + '"]').index() + ')').find('i').attr('class');
+
+        } else {
+            var aValue = $(a).find('td:eq(' + $('th[data-column="' + column + '"]').index() + ')').text();
+            var bValue = $(b).find('td:eq(' + $('th[data-column="' + column + '"]').index() + ')').text();
+        }
 
         if (column === 'creacion') {
             // Convertir fechas al formato de tiempo UNIX para la comparación
@@ -200,6 +207,7 @@ $(document).ready(function() {
         })
     })
 
+    // Manage the sort request
     $('.sortable').on('click', function() {
 
         var column = $(this).data('column');
@@ -212,7 +220,7 @@ $(document).ready(function() {
         $(this).addClass(sortOrder);
         
         // Lógica para ordenar la tabla
-        ordenarTabla(column, sortOrder);
+        orderTableForo(column, sortOrder);
     });
     
 });
