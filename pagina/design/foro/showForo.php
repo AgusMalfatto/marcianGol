@@ -39,7 +39,7 @@ include ("../../php/session/validateSession.php");
     </div>
     <div id="div_img_content">
         <!-- Image of the foro -->
-        <img src="" alt="..." class="card-img card-img-top" id="foro_image">    
+        <img src="" alt="..." class="card-img card-img-top img-fluid w-25" id="foro_image">    
     </div>
 
     <!-- Deactivate and modify foro buttons (Just for admin users) -->
@@ -62,8 +62,30 @@ include ("../../php/session/validateSession.php");
 <h3 class="mt-3">Comment Section</h3>
 
 <div class="text-right">
-    <button id='add_comment_btn' type='button' class='btn btn-primary' title="Añadir mensaje"><i class="las la-plus-circle la-2x"></i></button>
-    <button id="filter-zone"  type='button' class='btn btn-primary' title="Filtrar"><i class="las la-filter la-2x"></i></button>    
+    <div class="row">
+        <div class="col-md-1">
+            <button id='add_comment_btn' type='button' class='btn btn-primary' title="Añadir mensaje"><i class="las la-plus-circle la-2x"></i></button>
+        </div>
+        <div class="col-md-1">
+            <button id="filter_btn"  type='button' class='btn btn-primary' title="Filtrar"><i class="las la-filter la-2x"></i></button> 
+        </div>
+        <div class="col-md-1">
+            <button id="clean_filter_btn"  type='button' class='btn btn-primary' title="Filtrar"><i class="las la-broom la-2x"></i></button> 
+        </div>
+        <div class="col-md-2">
+            <input type="text" class="form-control" placeholder="Filtrar" id="inputFilterComment">
+        </div>
+        <div class="col-md-2">
+            <select class="form-control" id="selectOrderComment">
+                <option value="">Ordenar por</option>
+                <option value="date_comment">Fecha</option>
+                <option value="Likes DESC">Likes</option>
+                <option value="name">Nombre</option>
+                <option value="last_name">Apellido</option>
+                <option value="description">Comentario</option>
+            </select>
+        </div>
+    </div>   
 </div>
 
 <section id="comment-section">
