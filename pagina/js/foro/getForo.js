@@ -47,8 +47,7 @@ function fillDataForo(nameForo, description, image_url, league, id_foro) {
 }
 
 // Create comment card and add to the DOM
-function createCommentCard(comment) {
-    console.log(comment);
+function createCommentCard(comment, id_userSession, is_admin) {
 
     /* Creating contents cards */
     var commentCard = document.createElement('div');
@@ -56,6 +55,7 @@ function createCommentCard(comment) {
 
     var userNameCard = document.createElement('div');
     userNameCard.classList.add('m-1', 'author');
+    userNameCard.style.display = 'flex';
 
     var contentCard = document.createElement('div');
     contentCard.classList.add('m-1');
@@ -67,6 +67,7 @@ function createCommentCard(comment) {
     var nameTag = document.createElement('h5');
     nameTag.classList.add('card-title');
     nameTag.textContent = comment.name + ", " + comment.last_name + " | " + comment.date_comment;
+    nameTag.textContent = comment.name + ", " + comment.last_name + " | " + comment.date_comment;nameTag.style.flex = '1'
     
     var contentTag = document.createElement('p');
     contentTag.classList.add('card-text');
@@ -94,6 +95,20 @@ function createCommentCard(comment) {
 
     /* Append */
     userNameCard.appendChild(nameTag);
+
+    // Create the trash icon if the user is the creator of the comment or if is admin
+    if((id_userSession === comment.id_user) || (is_admin)) {
+        var trashButton = document.createElement('button');
+        var trashButtonId = "trashCommentBtn_" + comment.id_comment;
+        trashButton.setAttribute("id", trashButtonId);
+        trashButton.classList.add('trash_btn_class');
+        var trashIcon = document.createElement('i');
+        trashIcon.classList.add('las', 'la-trash', 'la-2x');
+        trashIcon.style.marginLeft = '35px';
+        
+        trashButton.appendChild(trashIcon);
+        userNameCard.appendChild(trashIcon);
+    }
     contentCard.appendChild(contentTag);
     likeButton.appendChild(likesIcon);
     likesCard.appendChild(likeButton);
@@ -103,7 +118,7 @@ function createCommentCard(comment) {
     commentCard.appendChild(contentCard);
     commentCard.appendChild(likesCard);
 
-    document.getElementById('content-comment').appendChild(commentCard);
+    return commentCard;
 }
 
 
@@ -121,7 +136,7 @@ $(document).ready(function () {
     getForo(idButton).then(function (foros) {
         if (foros != null) {
             var objForo = JSON.parse(foros);
-            console.log(objForo);
+
             fillDataForo(objForo.data[0].name, objForo.data[0].description, objForo.data[0].photo, objForo.data[0].league_description, objForo.data[0].id_foro);
 
         } else {
@@ -137,9 +152,13 @@ $(document).ready(function () {
         if (comments != null) {
             var objComment = JSON.parse(comments);
 
+            var id_userSession = objComment.id_userSession;
+            var is_admin = objComment.admin;
+
             /* Creating cards for each comment */
             objComment.data.forEach(comment => {
-                createCommentCard(comment);
+                var commentCard = createCommentCard(comment, id_userSession, is_admin);
+                document.getElementById('content-comment').appendChild(commentCard);
             })
         } else {
             console.log("Error");
