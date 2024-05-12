@@ -146,6 +146,26 @@ function fillBodyCommentsSection(comments) {
     })
 }
 
+function deactivateComment(id_comment) {
+    return new Promise(function (resolve, reject) {
+        var settings = {
+            "url": "../../php/comment/deactivateComment.php",
+            "method": "POST",
+            "timeout": 0,
+            "data": {
+                id_comment: id_comment
+            }
+        };
+
+        $.ajax(settings).done(function (response) {
+            response = JSON.parse(response);
+            resolve(response);
+        }).fail(function(jqXHR, textStatus, errorThrown) {
+            reject(errorThrown);
+        })
+    })
+}
+
 
 $(document).ready(function() {
     $(document).on("click", ".btn_reaction", function() {
@@ -188,6 +208,35 @@ $(document).ready(function() {
         var id_foro = $("#id_foro").text();
         getFilterComments(id_foro).then(function(comments) {
             fillBodyCommentsSection(comments);
+        })
+    })
+
+    $(document).on("click", ".trash_btn_class", function() {
+        var id_comment = $(this).attr("id");
+        id_comment = id_comment.split("_");
+        id_comment = id_comment.pop();
+
+        $("#questionModalLabel").text("Eliminar Comentario");
+        $("#questionModalText").text("¿Desea eliminar el comentario?");
+        $("#confirmQuestion").modal("show");
+
+        $("#confirmQuestionBtn").on("click", function () {
+            deactivateComment(id_comment).then(function(response) {
+                if (response.success) {
+                    $("#confirmModalLabel").text("Comentario Eliminado");
+                    $("#confirmModalText").text("El comentario se eliminó exitosamente.");
+                } else {
+                    $("#confirmModalLabel").text("Error al eliminar");
+                    $("#confirmModalText").text("Ups, hubo un error al eliminar el comentario. Por favor contacte con soporte.");
+                }
+                $("#confirmModal").modal("show");
+                $("#confirmQuestion").modal("hide");
+                // Evento que se dispara cuando el modal se cierra
+                $('#confirmModal').on('hidden.bs.modal', function () {
+                    // Redireccionar una vez que el modal se haya cerrado
+                    location.reload();
+                });
+            })
         })
     })
 

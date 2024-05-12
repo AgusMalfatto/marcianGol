@@ -101,13 +101,13 @@ function createCommentCard(comment, id_userSession, is_admin) {
         var trashButton = document.createElement('button');
         var trashButtonId = "trashCommentBtn_" + comment.id_comment;
         trashButton.setAttribute("id", trashButtonId);
-        trashButton.classList.add('trash_btn_class');
+        trashButton.classList.add('trash_btn_class', 'btn', 'd-flex', 'align-items-center');
         var trashIcon = document.createElement('i');
         trashIcon.classList.add('las', 'la-trash', 'la-2x');
         trashIcon.style.marginLeft = '35px';
         
         trashButton.appendChild(trashIcon);
-        userNameCard.appendChild(trashIcon);
+        userNameCard.appendChild(trashButton);
     }
     contentCard.appendChild(contentTag);
     likeButton.appendChild(likesIcon);
