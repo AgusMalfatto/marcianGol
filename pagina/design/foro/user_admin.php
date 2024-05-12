@@ -29,6 +29,7 @@ include('../../php/session/validateAdmin.php');
                     <th>Email</th>
                     <th>Equipo</th>
                     <th>Activo</th>
+                    <th>Admin</th>
                     <th>Acciones</th>
                 </tr>
             </thead>

@@ -76,7 +76,10 @@ function createRow(user) {
     row.append("<td>" + user.last_name + "</td>");
     row.append("<td>" + user.email + "</td>");
     row.append("<td>" + user.name + "</td>");
-    row.append("<td>" + user.active + "</td>");
+    var active = user.active ? "<i class='las la-check' style='color: green'></i>" : "<i class='las la-times' style='color: red'></i>";
+    row.append("<td>" + active + "</td>");
+    var admin = user.admin ? "<i class='las la-check' style='color: green'></i>" : "<i class='las la-times' style='color: red'></i>";
+    row.append("<td>" + admin + "</td>");
     
     // If the user is not active then the deactivate button is disabled
     if (user.active === 1) {
