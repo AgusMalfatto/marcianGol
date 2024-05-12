@@ -39,10 +39,13 @@ if ($id_foro === null) {
                                 WHERE F.active = 1
                                 ORDER BY F.id_foro DESC");
     } else {
-        $stmt = $conn->prepare("SELECT F.id_foro, F.photo, F.name, F.description, F.date_creation, L.description as league_description, F.active
+        $stmt = $conn->prepare("SELECT F.id_foro, F.photo, F.name, F.description, F.date_creation, L.description as league_description, F.active, COUNT(C.id_comment) as count_comment
                                 FROM foro F
                                 INNER JOIN league L
-                                ON F.id_league = L.id_league
+                                    ON F.id_league = L.id_league
+                                LEFT JOIN comment C
+                                    ON F.id_foro = C.id_foro
+                                GROUP BY F.id_foro, F.photo, F.name, F.description, F.date_creation, L.description, F.active
                                 ORDER BY F.id_foro DESC");
     }
     
@@ -85,6 +88,7 @@ if ($id_foro === null) {
     
 }
 
+$result->is_admin = $_SESSION['admin'];
 
 $resultSet->close();
 $stmt->close();

@@ -19,11 +19,13 @@
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
           <ul class="navbar-nav">
             
+            <li>
+              <a class="nav-link" href="/marciangol/pagina/design/foro/foro_admin.php" title="Ver Foros"><i class="las la-th-list la-2x"></i></a>
+            </li>'
             <?php
 
                 if($_SESSION['admin']) {
                   echo '<li><a class="nav-link" href="/marciangol/pagina/design/foro/createForo.php" title="Crear Foro"><i class="las la-plus-circle la-2x"></i></a></li>';                
-                  echo '<li><a class="nav-link" href="/marciangol/pagina/design/foro/foro_admin.php" title="Ver Foros"><i class="las la-th-list la-2x"></i></a></li>';
                   echo '<li><a class="nav-link" href="/marciangol/pagina/design/foro/user_admin.php" title="Ver Usuarios"><i class="las la-users la-2x"></i></a></li>';
                 } 
             ?>

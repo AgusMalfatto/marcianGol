@@ -2,7 +2,7 @@
 
 
 // Function to create the rows
-function crearFila(datos) {
+function crearFila(datos, admin) {
     var imageForo = datos.photo.split("/");
     var imageForo = imageForo.pop();
     var imageForo = imageForo.split(".")[0];
@@ -18,19 +18,54 @@ function crearFila(datos) {
     row.append("<td>" + imageForo + "</td>");
     row.append("<td>" + datos.league_description + "</td>");
     row.append("<td>" + datos.date_creation + "</td>");
-    row.append("<td>" + datos.active + "</td>");
+    row.append("<td>" + datos.count_comment + "</td>");
+    var active = datos.active ? "<i class='las la-check' style='color: green'></i>" : "<i class='las la-times' style='color: red'></i>";
+    row.append("<td>" + active + "</td>");
     
     if (datos.active === 1) {
-        row.append('<td><button class="btn-deactivate btn btn-danger" id="' + id_deactivate_btn + '">Desactivar</button></td>');
-        row.append('<td><button type="button" class="btn-modify btn btn-primary" id="' + id_modify_btn + '" data-toggle="modal" data-target="#modifyForoModal">Modificar</button></td>');
-        row.append('<td><a href="showForo.php?id=' + datos.id_foro + '" type="button" class="btn-modify btn btn-primary" id="' + id_modify_btn + '">Ver Foro</a></td>');
+        if(admin){
+            row.append('<td><button class="btn-deactivate btn btn-danger" id="' + id_deactivate_btn + '">Desactivar</button></td>');
+            row.append('<td><button type="button" class="btn-modify btn btn-primary" id="' + id_modify_btn + '" data-toggle="modal" data-target="#modifyForoModal">Modificar</button></td>');
+        }
+        row.append('<td><a href="showForo.php?id=' + datos.id_foro + '" type="button" class="btn-modify btn btn-primary" id="' + id_modify_btn + '">Ver</a></td>');
     } else {
-        row.append('<td><button class="btn btn-danger disabled">Desactivar</button></td>');
-        row.append('<td><button class="btn-modify btn btn-primary disabled">Modificar</button></td>');
-        row.append('<td><button class="btn-modify btn btn-primary disabled">Ver Foro</button></td>');
+        if(admin){
+            row.append('<td><button class="btn btn-danger disabled">Desactivar</button></td>');
+            row.append('<td><button class="btn-modify btn btn-primary disabled">Modificar</button></td>');
+        }
+        row.append('<td><button class="btn-modify btn btn-primary disabled">Ver</button></td>');
     }
     
     return row;
+}
+
+function ordenarTabla(column, order) {
+    var table = $('#table_foroList').find('tbody');
+    var rows = table.find('tr').toArray();
+    console.log(rows);
+
+    rows.sort(function(a, b) {
+        var aValue = $(a).find('td:eq(' + $('th[data-column="' + column + '"]').index() + ')').text();
+        var bValue = $(b).find('td:eq(' + $('th[data-column="' + column + '"]').index() + ')').text();
+
+        if (column === 'creacion') {
+            // Convertir fechas al formato de tiempo UNIX para la comparación
+            aValue = new Date(aValue).getTime();
+            bValue = new Date(bValue).getTime();
+        } else {
+            // Convertir valores a minúsculas para la comparación (ignorar mayúsculas/minúsculas)
+            aValue = aValue.toLowerCase();
+            bValue = bValue.toLowerCase();
+        }
+
+        if (order === 'asc') {
+            return aValue > bValue ? 1 : -1;
+        } else {
+            return aValue < bValue ? 1 : -1;
+        }
+    });
+
+    table.empty().append(rows);
 }
 
 // Function to fill the modify form with the foro information
@@ -62,7 +97,7 @@ $(document).ready(function() {
 			
 			console.log(objForos);
             for (var i = 0; i < objForos.data.length; i++) {
-                var fila = crearFila(objForos.data[i]);
+                var fila = crearFila(objForos.data[i], objForos.is_admin);
                 tableBody.append(fila);
             }
 
@@ -165,6 +200,19 @@ $(document).ready(function() {
         })
     })
 
-    
+    $('.sortable').on('click', function() {
+
+        var column = $(this).data('column');
+        var sortOrder = $(this).hasClass('asc') ? 'desc' : 'asc';
+        
+        // Remover clases de ordenación de otras columnas
+        $('.sortable').removeClass('asc desc');
+        
+        // Agregar clase de ordenación a la columna clicada
+        $(this).addClass(sortOrder);
+        
+        // Lógica para ordenar la tabla
+        ordenarTabla(column, sortOrder);
+    });
     
 });
