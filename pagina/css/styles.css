@@ -19,27 +19,6 @@ body {
     justify-content: center;
   }
   
-  /* h1 {
-    font-size: 2.5rem;
-    color: #f5f3f4;
-    overflow: inherit;
-  } */
-  
-  /* footer p {
-    color: #fff;
-  } */
-  
-  /* footer {
-    margin-top: 3rem;
-    border-top: 0.2rem solid #e5383b;
-    background-color: #161a1d;
-  } */
-  
-  /* textarea {
-    height: 4rem;
-    max-height: 6rem;
-    overflow-y: auto;
-  } */
   
   /* Barra de navegacion */
   .navbar {
@@ -72,16 +51,6 @@ body {
   .navlink:active {
     color: #a4161a;
   }
-  
-  /* .iconoper {
-    background-color: #e5383b;
-    color: #fff;
-    font-size: 2rem;
-    border: 0.1rem solid #e5383b;
-    border-radius: 25%;
-    padding-left: 1rem;
-    padding-right: 1rem;
-  } */
   
   
   /* Proyectos */
@@ -139,105 +108,6 @@ body {
     border: 0.1rem solid #a4161a !important;
   }
   
-  /* formulario */
-  /* form {
-    width: 50%;
-  }
-  
-  form div label {
-      color: #fff;
-      font-size: 1.3rem;
-  }
-  
-  form div input {
-      width: 20%;
-  }
-  
-  #mensaje {
-      resize: none;
-  }
-  
-  .plogin {
-      color: #f5f3f4;
-  } */
-  
-  /* Modal */
-  /* .modal-title {
-      color: black;
-  }
-  
-  .modal-mensaje{
-      color: black;
-  }
-  
-  .encapsuladorojo-modal {
-    border: 0.15rem solid #e5383b;
-  }
-  
-  .text-area-modal {
-      margin-bottom: 1rem;
-      width: 200%;
-  } */
-  
-  /* Adaptable responsivo */
-  /* @media screen and (max-width: 767px) {
-      .navbar-brand {
-          display: none;
-      }
-  } */
-  
-  /* Login and singup */
-  
-  /* .btnper {
-    background-color: #e5383b;
-  }
-  
-  .mensaje {
-    color: white;
-  }
-  
-  .encapsuladorojo {
-    border: 0.15rem solid #e5383b;
-    padding: 1rem;
-    border-radius: 0.4rem;
-    margin: 1.5rem;
-  }
-  
-  
-  .card-mensaje {
-    background-color: #f5f3f4;
-  }
-  
-  .button-container::after {
-    content: "";
-    display: table;
-    clear: both;
-  }
-  
-  .button-container button {
-    float: left;
-    margin-right: 10px;
-  }
-  
-  .hidden {
-    display: none;
-  }
-  
-  @media screen and (max-width: 600px) {
-    #titulo {
-      height: 6rem;
-    }
-  }
-  
-  .navbar-toggler-icon {
-    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(255, 255, 255, 0.5)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E");
-  }
-  
-  .navbar-toggler {
-    border-color: rgb(255, 255, 255);
-  }
-   */
-
    th.sortable {
     cursor: pointer;
   }
@@ -262,6 +132,28 @@ body {
   background-color: #00ff15;
 }
 
+
+/* SHOW FORO */
+
+.foro {
+  margin: auto;
+  text-align: center;
+}
+.foro img {
+  margin: 0;
+  width: 20rem;
+}
+.title_foro {
+  font-size: 3rem;
+}
+.card-text {
+  font-size: 1.5rem;
+}
+
+.text-right {
+  margin: auto;
+  text-align: center;
+}
 
 /* Footer */
 .footerhome {

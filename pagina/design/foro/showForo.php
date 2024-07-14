@@ -13,33 +13,31 @@ include ("../../php/session/validateSession.php");
     include 'templates/templateMenu.php'; 
 ?>
 
-<h1>Show FORO</h1>
-
 <!-- Div para esconder el id del foro -->
 <div id="id_foro_div"  class="d-none">
     <p id="id_foro"></p>
 </div>
 
-<div class="foro">   
+<div class="foro MT-5">   
     <div id="div_foro_title">
-        <h2 class="title_foro" id="foro_name">
+        <h1 class="title_foro" id="foro_name">
             <!-- Title of the foro -->
-        </h2>
+        </h1>
         
     </div>
     <div id="div_foro_description">
-        <h4 class="card-text" id="foro_description">
+        <h3 class="card-text" id="foro_description">
             <!-- Description of the foro -->
-        </h4>    
+        </h3>    
     </div>
     <div id="div_foro_league">
         <h5 class="card-text" id="foro_league">
             <!-- League of the foro -->
         </h5>
     </div>
-    <div id="div_img_content">
+    <div id="div_img_content" class="d-flex justify-content-center">
         <!-- Image of the foro -->
-        <img src="" alt="..." class="card-img card-img-top img-fluid w-25" id="foro_image">    
+        <img src="" alt="..." class="card-img card-img-top" id="foro_image">    
     </div>
 
     <!-- Deactivate and modify foro buttons (Just for admin users) -->
@@ -63,19 +61,19 @@ include ("../../php/session/validateSession.php");
 
 <div class="text-right">
     <div class="row">
-        <div class="col-md-1">
+        <div class="col-md-1 mx-2">
             <button id='add_comment_btn' type='button' class='btn btn-primary' title="Añadir mensaje"><i class="las la-plus-circle la-2x"></i></button>
         </div>
         <div class="col-md-1">
             <button id="filter_btn"  type='button' class='btn btn-primary' title="Filtrar"><i class="las la-filter la-2x"></i></button> 
         </div>
-        <div class="col-md-1">
+        <div class="col-md-1 mx-2">
             <button id="clean_filter_btn"  type='button' class='btn btn-primary' title="Filtrar"><i class="las la-broom la-2x"></i></button> 
         </div>
-        <div class="col-md-2">
+        <div class="col-md-4">
             <input type="text" class="form-control" placeholder="Filtrar" id="inputFilterComment">
         </div>
-        <div class="col-md-2">
+        <div class="col-md-4">
             <select class="form-control" id="selectOrderComment">
                 <option value="">Ordenar por</option>
                 <option value="date_comment">Fecha</option>
