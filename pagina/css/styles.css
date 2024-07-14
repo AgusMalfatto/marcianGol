@@ -1,5 +1,11 @@
 /* Estilos generales */
-
+html, body {
+  height: 100%;
+}
+body {
+  display: flex;
+  flex-direction: column;
+}
 body {
     background-color: #00ff15;
     /* Buscar una fuente */
@@ -238,6 +244,22 @@ body {
 
   th.sortable.cursor-pointer:hover {
     background-color: #f0f0f0; /* Cambia el color de fondo al pasar el cursor */
+}
+
+
+/* TABLE ADMIN USERS */
+
+.content-adminUser {
+  flex: 1 0 auto;
+}
+.footerhome {
+  flex-shrink: 0;
+}
+
+/* MODIFY FORO MODAL */
+
+.modal-content-interact {
+  background-color: #00ff15;
 }
 
 
