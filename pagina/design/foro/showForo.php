@@ -55,11 +55,15 @@ include ("../../php/session/validateSession.php");
     include 'modals/modal_alerts.php';
 ?>
 
+<div class="divider-content">
+    <hr class="divider"></hr>   
+</div>
+
 <!-- COMMENT SECTIONS -->
-
-<h3 class="mt-3">Comment Section</h3>
-
-<div class="text-right">
+<div class="comment-title w-100 mt-3 mb-3">
+    <h3 class="mt-3">Comentarios</h3>
+</div>
+<div class="text-right w-90">
     <div class="row">
         <div class="col-md-1 mx-2">
             <button id='add_comment_btn' type='button' class='btn btn-primary' title="Añadir mensaje"><i class="las la-plus-circle la-2x"></i></button>
