@@ -16,28 +16,32 @@ include ("../../php/session/validateAdmin.php");
         include ("templates/templateMenu.php");
     ?>
 
-<h1>CREATE FORO</h1>
+<h1>Crear Foro</h1>
 
 <!-- Formulario de modificación sin modal -->
 <div class="container">
-    <h2>Modificar Foro</h2>
+    
     <form id="modificarForoForm">
+        <br>
         <div class="form-group">
-            <label for="nameCreateForo">Nombre del Foro</label>
+            <label for="nameCreateForo" class="form-label h5 font-weight-bold">Nombre del Foro</label>
             <input type="text" class="form-control" id="nameCreateForo" placeholder="Nombre del Foro">
         </div>
+        <br>
         <div class="form-group">
-            <label for="descriptionCreateForo">Descripción del Foro</label>
+            <label for="descriptionCreateForo" class="form-label h5 font-weight-bold">Descripción del Foro</label>
             <textarea class="form-control" id="descriptionCreateForo" rows="3" placeholder="Descripción del Foro"></textarea>
         </div>
+        <br>
         <div class="form-group">
-            <label for="imageCreateForo">Principal del Foro</label>
-            <select class="form-control-file mt-4 mb-4" id="imageCreateForo">
+            <label for="imageCreateForo" class="form-label h5 font-weight-bold">Equipo del Foro</label>
+            <select class="form-control mt-1 mb-1" id="imageCreateForo">
             </select>
         </div>
+        <br>
         <div class="form-group">
-            <label for="leagueCreateForo">Liga del Foro</label>
-            <select class="form-control-file mt-4 mb-4" id="leagueCreateForo">
+            <label for="leagueCreateForo" class="form-label h5 font-weight-bold">Liga del Foro</label>
+            <select class="form-control mt-1 mb-4" id="leagueCreateForo">
             </select>
         </div>
         <button type="button" class="btn btn-primary" id="createForoButton">Confirmar</button>
