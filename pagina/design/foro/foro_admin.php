@@ -46,6 +46,7 @@ include('../../php/session/validateSession.php');
     </div>
 
     <?php
+      include 'templates/footer.php';
       include 'modals/modal_modifyForo.php'; 
       include 'modals/modal_alerts.php';
     ?>

@@ -48,11 +48,12 @@ include ("../../php/session/validateSession.php");
         <button type="button" class="btn btn-primary" id="send_deactivateUser_btn">Desactivar Cuenta</button>
     </form>
 
-    <?php
-    include ("../foro/modals/modal_alerts.php");
-    ?>
-
 </div>
+
+    <?php
+         include ("../foro/templates/footer.php");
+         include ("../foro/modals/modal_alerts.php");
+    ?>
 
     <script src="../../js/jquery-3.7.1.min.js"></script>
 

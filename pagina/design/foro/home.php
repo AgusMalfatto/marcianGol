@@ -31,25 +31,9 @@ include('../../php/session/validateSession.php');
       </div>
     </section>
 
-    <section>
-  <footer class="footerhome bg-dark text-white mt-5">
-    <div class="footerhome row mt-3">
-      <div class="col text-center">
-        <p>Resultados y Estadisticas de las principales ligas: <a href="https://www.promiedos.com.ar">Promiedos</a></p>
-      </div>
-    </div>
-    <div class="row mt-3">
-      <div class="col text-center">
-        <p class="mb-0">&copy; 2024 MarcianGol. Todos los derechos reservados.</p>
-      </div>
-    </div>
-  </div>
-</footer>
-
-<!-- FontAwesome for social media icons -->
-<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
-
-    </section>
+    <?php
+        include 'templates/footer.php'; 
+    ?>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
     <script src="../../js/jquery-3.7.1.min.js"></script>

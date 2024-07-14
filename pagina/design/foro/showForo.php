@@ -92,7 +92,11 @@ include ("../../php/session/validateSession.php");
     <div id="content-comment">
         <!-- Comments of the foro -->
     </div>
-</section>
+</section>      
+
+<?php
+    include 'templates/footer.php'; 
+?>
 
 <script src="../../js/jquery-3.7.1.min.js"></script>
 

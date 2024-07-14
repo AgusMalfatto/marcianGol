@@ -50,6 +50,7 @@ include ("../../php/session/validateAdmin.php");
 </div>
 
 <?php
+    include 'templates/footer.php'; 
     include 'modals/modal_alerts.php'; 
 ?>
 

@@ -19,7 +19,7 @@ include('../../php/session/validateAdmin.php');
 
     <h1>Administración de Usuarios</h1>
 
-    <div class="container">
+    <div class="container content-adminUser">
         <table class="table table-striped" id="table_userList">
             <thead>
                 <tr>
@@ -40,6 +40,7 @@ include('../../php/session/validateAdmin.php');
     </div>
 
     <?php
+      include 'templates/footer.php';
       include 'modals/modal_alerts.php';
     ?>
 
