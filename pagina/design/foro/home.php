@@ -25,7 +25,7 @@ include('../../php/session/validateSession.php');
 
     <section id="trend-foro">
       <div class="card">
-        <div class="row g-0" id="trend-div">
+        <div class="row g-0 w-100" id="trend-div">
           
         </div>
       </div>
