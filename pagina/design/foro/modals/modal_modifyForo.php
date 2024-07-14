@@ -3,7 +3,7 @@
 <!-- Modal to modify foro -->
 <div class="modal fade" id="modifyForoModal" tabindex="-1" role="dialog" aria-labelledby="modificarForoModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
-        <div class="modal-content">
+        <div class="modal-content modal-content-interact">
             <div class="modal-header">
                 <h5 class="modal-title" id="modificarForoModalLabel">Modificar Foro</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
@@ -14,26 +14,26 @@
                 <!-- Formulario de modificación -->
                 <form id="modificarForoForm">
                     <div class="form-group mt-3">
-                        <label for="idForo">ID del Foro</label>
+                        <label for="idForo" class="form-label h5 font-weight-bold">ID del Foro</label>
                         <input type="text" class="form-control" id="idModifyForo" placeholder="">
                     </div>
                     <div class="form-group mt-3">
-                        <label for="nameModifyForo">Nombre del Foro</label>
+                        <label for="nameModifyForo" class="form-label h5 font-weight-bold">Nombre del Foro</label>
                         <input type="text" class="form-control" id="nameModifyForo" placeholder="">
                     </div>
                     <div class="form-group mt-3">
-                        <label for="descriptionModifyForo">Descripción del Foro</label>
+                        <label for="descriptionModifyForo" class="form-label h5 font-weight-bold">Descripción del Foro</label>
                         <textarea class="form-control" id="descriptionMofidyForo" rows="3"></textarea>
                     </div>
                     <div class="form-group mt-3">
-                        <label for="iamgeModifyForo">Principal del Foro</label>
-                        <select class="form-control-file" id="imageModifyForo">
+                        <label for="iamgeModifyForo" class="form-label h5 font-weight-bold">Principal del Foro</label>
+                        <select class="form-control" id="imageModifyForo">
                         
                         </select>
                     </div>
                     <div class="form-group mt-3">
-                        <label for="leagueModifyForo">Liga del Foro</label>
-                        <select class="form-control-file" id="leagueModifyForo">
+                        <label for="leagueModifyForo" class="form-label h5 font-weight-bold">Liga del Foro</label>
+                        <select class="form-control" id="leagueModifyForo">
 
                         </select>
                     </div>
