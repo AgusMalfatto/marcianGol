@@ -1,0 +1,182 @@
+/* Estilos generales */
+html, body {
+  height: 100%;
+}
+body {
+  display: flex;
+  flex-direction: column;
+}
+body {
+    background-color: #00ff15;
+    /* Buscar una fuente */
+    /* font-family: "Source Code Pro", monospace; */
+  }
+  
+  section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  
+  /* Barra de navegacion */
+  .navbar {
+    background-color: #161a1d;
+    padding: 1rem;
+    border-bottom: 0.2rem solid #e5383b;
+  }
+  
+  .navbar-collapse {
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  .navlink {
+    color: white;
+    font-size: 1.25rem;
+    margin-left: 1rem;
+  }
+  
+  .navlink:hover,
+  .navlink:focus,
+  .navlink:visited:hover {
+    color: #e5383b;
+  }
+  
+  .navlink:visited {
+    color: #fff;
+  }
+  
+  .navlink:active {
+    color: #a4161a;
+  }
+  
+  
+  /* Proyectos */
+  .card {
+    background-color: #004b0a;
+    color: white;
+    transition: transfrom 0.3s ease-in-out;
+  }
+  
+  .card h5 {
+    color: #e5383b;
+  }
+  
+  .card:hover {
+    transform: scale(1.03);
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  .btn-card,
+  .btn-card:visited {
+    background-color: #e5383b;
+    border: none;
+    color: white;
+  }
+  
+  .btn-card:hover,
+  .btn-card:focus {
+    background-color: #ba181b;
+    border: none;
+    box-shadow: none;
+  }
+  
+  .btn-card:active {
+    background-color: #a4161a !important;
+    border: none;
+  }
+  
+  .btn-card-update,
+  .btn-card-update:visited {
+    background-color: #f5f3f4;
+    border: 0.1rem solid #e5383b;
+    color: #e5383b;
+    margin-right: 1rem;
+  }
+  
+  .btn-card-update:hover,
+  .btn-card-update:focus {
+    background-color: #fff;
+    border: 0.1rem solid #ba181b;
+    color: #ba181b;
+  }
+  
+  .btn-card-update:active {
+    background-color: #a4161a !important;
+    border: 0.1rem solid #a4161a !important;
+  }
+  
+   th.sortable {
+    cursor: pointer;
+  }
+
+  th.sortable.cursor-pointer:hover {
+    background-color: #f0f0f0; /* Cambia el color de fondo al pasar el cursor */
+}
+
+
+/* TABLE ADMIN USERS */
+
+.content-adminUser {
+  flex: 1 0 auto;
+}
+.footerhome {
+  flex-shrink: 0;
+}
+
+/* MODIFY FORO MODAL */
+
+.modal-content-interact {
+  background-color: #00ff15;
+}
+
+
+/* SHOW FORO */
+
+.foro {
+  margin: auto;
+  text-align: center;
+}
+.foro img {
+  margin: 0;
+  width: 20rem;
+}
+.title_foro {
+  font-size: 3rem;
+}
+.card-text {
+  font-size: 1.5rem;
+}
+
+.comment-title {
+  margin: auto;
+  text-align: center;
+  background-color: #8bfd9a;
+}
+
+.text-right {
+  margin: auto;
+  text-align: center;
+}
+
+.divider-content {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+}
+
+.divider {
+  border: 3px solid #4a4949;
+  border-radius: 300px/10px; 
+  height: 0px; 
+  width: 80%;
+}
+
+/* Footer */
+.footerhome {
+  padding-left: 10%;
+  padding-right: 10%;
+  width: 100%;
+}
