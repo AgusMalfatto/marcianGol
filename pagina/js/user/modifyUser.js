@@ -29,12 +29,10 @@ function fillImageSelect(response) {
     getUser().then(function (user) {
         if (user != null) {
             var objUser = JSON.parse(user);
-            console.log(objUser);
-            fillUserForm(objUser);
-            
+            fillUserForm(objUser);   
 
         } else {
-            console.log("Nop");
+            console.log("Error al cargar el formulario.");
         }
     }).catch(function (error) {
         console.error("Error al obtener foros:", error);
@@ -74,7 +72,7 @@ function fillUserForm(user) {
 }
 
 $(document).ready(function() {
-    // '0' if the use is going to deactivate the foro, '1' if the user is going to modify.
+    // '0' if the user is going to deactivate the user, '1' if the user is going to modify.
     var flag;
 
     $("#id_user").prop("disabled", true);
