@@ -1,4 +1,4 @@
-<!-- Modal deactivate foro Confirmation-->
+<!-- Modal Confirmation-->
 <div class="modal fade" id="confirmQuestion" tabindex="-1" role="dialog" aria-labelledby="confirmModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -23,7 +23,7 @@
   </div>
 </div>
 
-<!-- Modal after deactivate foro -->
+<!-- Modal Alert -->
 <div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="avisoModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
