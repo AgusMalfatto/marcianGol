@@ -28,6 +28,7 @@ function getForo(active = 0) {
 	});
 }
 
+// Function to create foro card
 function createForoCard(id_foro, nombre, descripcion, imagenUrl, date_creation) {
 	// Create tags
 	var headDiv = document.createElement('div');
@@ -92,14 +93,20 @@ function createForoCard(id_foro, nombre, descripcion, imagenUrl, date_creation) 
 	return cardDiv;
 }
 
+// Function to create trend foro card
 function createTrendForoCard(id_foro, nombre, descripcion, imagenUrl, date_creation) {
 	// Create tags
 	var cardDiv = document.createElement('div');
-	cardDiv.classList.add('m-3', 'd-flex', 'justify-content-between', 'trend-card');
-	cardDiv.style.width = '30%'; // Set cardDiv width to 60%
+	cardDiv.classList.add('m-3', 'd-flex', 'trend-card');
+	cardDiv.style.width = '80%'; 
+	cardDiv.style.height = '20rem';
+	cardDiv.style.alignItems = 'center';
+	cardDiv.style.justifyContent = 'center';
+	cardDiv.style.textAlign = 'center';
 
 	var cardImgDiv = document.createElement('div');
-	cardImgDiv.classList.add('col-md-4'); // Use Bootstrap grid classes for 4 columns
+	cardImgDiv.classList.add('col-md-4',); // Use Bootstrap grid classes for 4 columns
+	cardImgDiv.style.width = '20%';
 
 	var img = document.createElement('img');
 	img.src = imagenUrl;
@@ -108,6 +115,11 @@ function createTrendForoCard(id_foro, nombre, descripcion, imagenUrl, date_creat
 
 	var cardContentDiv = document.createElement('div');
 	cardContentDiv.classList.add('col-md-4'); // Use Bootstrap grid classes for 8 columns
+	cardContentDiv.style.width = '60%';
+	cardContentDiv.style.display = 'flex'; // Usa flexbox para el posicionamiento
+	cardContentDiv.style.alignItems = 'center'; // Centra verticalmente el contenido
+	cardContentDiv.style.justifyContent = 'center'; // Centra horizontalmente el contenido
+	cardContentDiv.style.textAlign = 'center'; 
 
 	var cardBodyDiv = document.createElement('div');
 	cardBodyDiv.classList.add('card-body');
